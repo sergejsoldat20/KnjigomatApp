@@ -11,8 +11,6 @@ public class PhotoEntity {
     private Integer id;
     @Basic@Column(name = "photo_url")
     private String photoUrl;
-    @Basic@Column(name = "post_id")
-    private Integer postId;
     @ManyToOne@JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
     private PostEntity postByPostId;
 

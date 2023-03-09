@@ -27,17 +27,15 @@ public class PostEntity {
     private Boolean deleted;
     @Basic@Column(name = "condition")
     private String condition;
-    @Basic@Column(name = "category_id")
-    private Integer categoryId;
     @OneToMany(mappedBy = "post")
     private List<CommentEntity> comments;
     @OneToMany(mappedBy = "postByPostId")
     private List<PhotoEntity> photos;
-    @ManyToOne@JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private CategoryEntity category;
-    @Basic@Column(name = "user_id")
-    private Integer userId;
-    @ManyToOne@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private UserEntity user;
 
 }
