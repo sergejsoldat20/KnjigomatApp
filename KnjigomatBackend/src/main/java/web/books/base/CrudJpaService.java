@@ -2,6 +2,7 @@ package web.books.base;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.Data;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Transactional
-@Getter
+@Data
 public abstract class CrudJpaService<E extends BaseEntity<ID>,ID extends Serializable> implements CrudService<ID> {
     private final JpaRepository<E,ID> repository;
     private final Class<E> entityClass;
@@ -68,7 +69,7 @@ public abstract class CrudJpaService<E extends BaseEntity<ID>,ID extends Seriali
 
     @Override
     public void delete(ID id) throws NotFoundException {
-        if(!repository.existsById(id))
+        if (!repository.existsById(id))
             throw new NotFoundException();
         repository.deleteById(id);
     }

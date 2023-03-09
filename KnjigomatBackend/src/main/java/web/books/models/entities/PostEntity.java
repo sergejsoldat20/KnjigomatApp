@@ -10,7 +10,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "post", schema = "knjigomat", catalog = "")
+
 public class PostEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id@Column(name = "id")
     private Integer id;
     @Basic@Column(name = "name")

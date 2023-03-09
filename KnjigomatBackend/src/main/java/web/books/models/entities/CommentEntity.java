@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "comment", schema = "knjigomat", catalog = "")
 public class CommentEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id@Column(name = "id")
     private Integer id;
     @Basic@Column(name = "created_time")

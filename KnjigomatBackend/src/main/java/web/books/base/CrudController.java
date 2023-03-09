@@ -2,6 +2,7 @@ package web.books.base;
 
 
 import lombok.Getter;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import web.books.exceptions.NotFoundException;
@@ -20,7 +21,7 @@ public abstract class CrudController<ID extends Serializable,REQ,RESP> {
     }
 
     @GetMapping
-    List<RESP> findAll() {
+    List<RESP> findAll() throws NotFoundException {
         return crudService.findAll((respClass));
     }
 
