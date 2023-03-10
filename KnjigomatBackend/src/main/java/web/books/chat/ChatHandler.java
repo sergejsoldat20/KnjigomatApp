@@ -11,9 +11,9 @@ import web.books.repositories.UserEntityRepository;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
-public class ChatHandler extends TextWebSocketHandler {
-    private static final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
+
+public class ChatHandler /*extends TextWebSocketHandler*/ {
+    /*private static final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
     @Autowired
     private UserEntityRepository userEntityRepository;

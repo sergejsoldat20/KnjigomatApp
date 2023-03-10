@@ -3,6 +3,7 @@ package web.books.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -50,6 +51,7 @@ public class AuthController {
     }
 
     @PostMapping("/change-password")
+    @PreAuthorize("hasRole(SecurityContst.USER) || hasRole(SecurityContst.ADMIN)")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) throws NotFoundException {
         User user = modelMapper.map(repository.findByUsername(request.getUsername()), User.class);
         String currentPassword = request.getOldPassword();
