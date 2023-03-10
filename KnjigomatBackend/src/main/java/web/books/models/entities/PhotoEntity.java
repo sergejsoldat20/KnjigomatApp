@@ -9,9 +9,11 @@ import lombok.*;
 public class PhotoEntity {
     @Id@Column(name = "id")
     private Integer id;
-    @Basic@Column(name = "photo_url")
+    @Basic
+    @Column(name = "photo_url")
     private String photoUrl;
-    @ManyToOne@JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
     private PostEntity postByPostId;
 
 }

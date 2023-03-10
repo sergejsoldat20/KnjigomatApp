@@ -17,9 +17,11 @@ public class CommentEntity {
     private String text;
     @Basic@Column(name = "deleted")
     private Boolean deleted;
-    @ManyToOne@JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
     private PostEntity post;
-    @ManyToOne@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private UserEntity user;
 
 }
