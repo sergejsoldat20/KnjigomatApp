@@ -2,13 +2,14 @@ package web.books.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import web.books.base.BaseEntity;
 
 import java.sql.Timestamp;
 
 @Data
 @Entity
 @Table(name = "message", schema = "knjigomat", catalog = "")
-public class MessageEntity {
+public class MessageEntity implements BaseEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id@Column(name = "id")
     private Integer id;

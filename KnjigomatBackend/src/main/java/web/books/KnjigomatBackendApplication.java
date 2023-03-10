@@ -9,6 +9,7 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,6 @@ public class KnjigomatBackendApplication {
     }
 
     private ApiInfo getApiInfo(){
-        return new ApiInfo("Knjigomat","Opis aplikacije","1.0.0","",null,"","",new ArrayList<>());
+        return new ApiInfo("Asset Management", "Description of application", "1.0.0", "",null, "", "", new ArrayList<>());
     }
 }
