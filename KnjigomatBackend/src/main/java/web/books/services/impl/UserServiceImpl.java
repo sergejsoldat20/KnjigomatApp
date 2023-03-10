@@ -53,6 +53,11 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
     }
 
     @Override
+    public String getUsernameById(Integer id) {
+        return repository.findUsernameById(id);
+    }
+
+    @Override
     public List<User> getUsersWithChat() {
         return null;
     }
