@@ -1,5 +1,6 @@
 package web.books.controllers;
 
+import jakarta.annotation.security.PermitAll;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +68,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @PermitAll
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) throws NotFoundException {
         if(repository.existsByUsername(request.getUsername())) {
             return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
@@ -78,6 +80,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @PermitAll
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
         System.out.println(request.getUsername());
         Authentication authentication = authenticationManager.authenticate(
