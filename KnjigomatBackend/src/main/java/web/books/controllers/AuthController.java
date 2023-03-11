@@ -68,7 +68,6 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    @PermitAll
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) throws NotFoundException {
         if(repository.existsByUsername(request.getUsername())) {
             return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
@@ -79,8 +78,8 @@ public class AuthController {
         return new ResponseEntity<>("User registered success!", HttpStatus.OK);
     }
 
+    // @PreAuthorize("permitAll()")
     @PostMapping("/login")
-    @PermitAll
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
         System.out.println(request.getUsername());
         Authentication authentication = authenticationManager.authenticate(

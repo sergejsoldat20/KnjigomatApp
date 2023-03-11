@@ -14,6 +14,7 @@ public interface UserService extends CrudService<Integer> {
     UserResponse getCurrentUser();
     String getCurrentRole();
     Integer getCurrentId();
+    String getUsernameById(Integer id);
     List<User> getUsersWithChat();
     List<User> getAll(); // all users with current
 }
