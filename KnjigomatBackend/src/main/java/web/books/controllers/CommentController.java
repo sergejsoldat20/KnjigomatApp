@@ -1,5 +1,6 @@
 package web.books.controllers;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import org.aspectj.weaver.ast.Not;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +27,7 @@ public class CommentController {
         this.userService = userService;
     }
     @GetMapping("/posts/{id}")
+    @PermitAll
     public List<Comment> getAllByPostId(@PathVariable Integer id) {
         return service.getAllByPostId(id);
     }
