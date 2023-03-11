@@ -22,13 +22,13 @@ public class MessagesController {
     }
 
     @PostMapping("/send-message/{id}")
-    @PreAuthorize("hasRole(SecurityContst.USER) || hasRole(SecurityContst.ADMIN)")
+    @PreAuthorize("hasRole(SecurityConsts.USER) || hasRole(SecurityConsts.ADMIN)")
     public void sendMessage(@PathVariable Integer id, @RequestBody MessageRequest request) {
         messageService.sendMessage(request.getText(), id);
     }
 
     @GetMapping("for-chat/{id}")
-    @PreAuthorize("hasRole(SecurityContst.USER) || hasRole(SecurityContst.ADMIN)")
+    @PreAuthorize("hasRole(SecurityConsts.USER) || hasRole(SecurityConsts.ADMIN)")
     public List<Message> getMessagesForChat(@PathVariable Integer id){
         return messageService.getMessagesWithUser(id);
     }
