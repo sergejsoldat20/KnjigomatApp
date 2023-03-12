@@ -16,7 +16,7 @@ public class Post {
         private Boolean deleted;
         private String state;
         private String categoryName;
-        private String userId;
+        private Integer userId;
 
 
 

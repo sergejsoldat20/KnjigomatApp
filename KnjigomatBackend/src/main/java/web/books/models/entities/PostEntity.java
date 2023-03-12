@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "post")
-@SQLDelete(sql = "UPDATE comment SET deleted = true WHERE id=?")
+@SQLDelete(sql = "UPDATE post SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 @EntityListeners(AuditingEntityListener.class)
 
