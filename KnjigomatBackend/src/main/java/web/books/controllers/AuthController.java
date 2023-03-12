@@ -1,5 +1,6 @@
 package web.books.controllers;
 
+import jakarta.annotation.security.PermitAll;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ import web.books.models.requests.RegisterRequest;
 import web.books.repositories.UserEntityRepository;
 import web.books.security.JwtGenerator;
 import web.books.services.UserService;
-
+import web.books.security.SecurityConsts;
 import java.util.Optional;
 
 @RestController
@@ -33,9 +34,7 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
     private JwtGenerator jwtGenerator;
     private ModelMapper modelMapper;
-
     private UserEntityRepository repository;
-
 
     public AuthController(AuthenticationManager authenticationManager,
                           UserService userService,
@@ -51,7 +50,6 @@ public class AuthController {
     }
 
     @PostMapping("/change-password")
-    @PreAuthorize("hasRole(SecurityContst.USER) || hasRole(SecurityContst.ADMIN)")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) throws NotFoundException {
         User user = modelMapper.map(repository.findByUsername(request.getUsername()), User.class);
         String currentPassword = request.getOldPassword();
@@ -77,6 +75,7 @@ public class AuthController {
         return new ResponseEntity<>("User registered success!", HttpStatus.OK);
     }
 
+    // @PreAuthorize("permitAll()")
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
         System.out.println(request.getUsername());

@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import web.books.exceptions.NotFoundException;
-import web.books.models.DTO.Post;
-import web.books.models.DTO.SinglePost;
+import web.books.models.dto.Post;
+import web.books.models.dto.SinglePost;
 import web.books.models.requests.PostRequest;
 import web.books.services.PostService;
 import web.books.services.UserService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -45,7 +44,7 @@ public class PostController {
     public SinglePost findById(@PathVariable Integer id) throws NotFoundException {
         return service.findById(id, SinglePost.class);
     }
-    @GetMapping("users/{id}")
+    @GetMapping("/users/{id}")
     public List<Post> getAllByUserId (@PathVariable Integer id) throws NotFoundException {
         return  service.getAllByUserId(id);
     }
@@ -60,16 +59,17 @@ public class PostController {
     public SinglePost insert(@RequestBody PostRequest record) throws NotFoundException {
        record.setCreatedTime(new Timestamp(System.currentTimeMillis()));
         //record.setUserId(userService.getCurrentId());
-        record.setCondition("new");
-        record.setUserId(1);
-        record.setPrice(BigDecimal.valueOf(4.12));
-        record.setAuthorName("sasa");
-        record.setCategoryId(1);
+       // record.setCondition("new");
+       // record.setUserId(1);
+       // record.setPrice(BigDecimal.valueOf(4.12));
+       // record.setAuthorName("sasa");
+       // record.setCategoryId(1);
         return service.insert(record, SinglePost.class);
     }
 
     @PutMapping("/{id}")
     public SinglePost update(@PathVariable Integer id,@RequestBody PostRequest countryRequest) throws NotFoundException{
+        countryRequest.setCreatedTime(new Timestamp(System.currentTimeMillis()));
         return service.update(id,countryRequest,SinglePost.class);
     }
 

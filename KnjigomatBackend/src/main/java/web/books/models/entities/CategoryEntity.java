@@ -16,7 +16,6 @@ public class CategoryEntity {
     @Basic@Column(name = "name")
     private String name;
     @OneToMany(mappedBy = "category")
-    @JsonIgnore
     private List<PostEntity> posts;
 
 }

@@ -18,12 +18,10 @@ import java.util.List;
 public class PostRequest {
     private String name;
     private String description;
-
     private BigDecimal price;
-
     private String authorName;
     private Timestamp createdTime;
-    private String condition;
+    private String state;
     private Integer categoryId;
     private Integer userId;
 

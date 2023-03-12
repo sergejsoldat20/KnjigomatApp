@@ -30,6 +30,11 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
     }
 
     @Override
+    public List<User> getAll(){
+        return super.findAll(User.class);
+    }
+
+    @Override
     public UserResponse getCurrentUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return super.getModelMapper().map(repository.findByUsername(username), UserResponse.class);
@@ -45,6 +50,16 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
     public Integer getCurrentId() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return repository.findIdByUsername(username);
+    }
+
+    @Override
+    public String getUsernameById(Integer id) {
+        return repository.findUsernameById(id);
+    }
+
+    @Override
+    public List<User> getUsersWithChat() {
+        return null;
     }
 
     @Override

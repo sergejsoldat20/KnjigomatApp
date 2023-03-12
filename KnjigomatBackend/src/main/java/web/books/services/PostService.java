@@ -2,10 +2,8 @@ package web.books.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import web.books.base.CrudJpaService;
 import web.books.base.CrudService;
-import web.books.models.DTO.Post;
-import web.books.models.entities.PostEntity;
+import web.books.models.dto.Post;
 
 import java.util.List;
 
