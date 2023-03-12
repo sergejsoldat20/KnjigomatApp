@@ -23,8 +23,12 @@ public class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole(SecurityConsts.USER)")
     public List<User> getAll(){
        return userService.getAllUsers();
+    }
+
+    @GetMapping("/users/chat-users")
+    public List<User> getChatUsers() {
+        return null;
     }
 }
