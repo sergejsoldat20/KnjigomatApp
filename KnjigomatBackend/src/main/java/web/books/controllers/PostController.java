@@ -1,0 +1,81 @@
+package web.books.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import web.books.exceptions.NotFoundException;
+import web.books.models.dto.Comment;
+import web.books.models.dto.Post;
+import web.books.models.requests.PostRequest;
+import web.books.security.SecurityConsts;
+import web.books.services.PostService;
+import web.books.services.UserService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Objects;
+
+@RestController
+@RequestMapping("/posts")
+public class PostController {
+
+    @Autowired
+    private final PostService service;
+    @Autowired
+    private final UserService userService;
+
+    public PostController(PostService servise, UserService userService) {
+        this.service = servise;
+        this.userService = userService;
+    }
+
+    @GetMapping
+    public List<Post> findAll() throws NotFoundException {
+        return service.findAll(Post.class);
+    }
+
+    @GetMapping("/paginated")
+    public Page<Post> findAllPaginated(Pageable page) {
+        return service.findAll(page, Post.class);
+    }
+
+    @GetMapping("/{id}")
+    public Post findById(@PathVariable Integer id) throws NotFoundException {
+        return service.findById(id, Post.class);
+    }
+    @GetMapping("/users/{id}")
+    public List<Post> getAllByUserId (@PathVariable Integer id) throws NotFoundException {
+        return  service.getAllByUserId(id);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) throws NotFoundException {
+        Post post = service.findById(id, Post.class);
+        if (Objects.equals(post.getUserId(), userService.getCurrentId()) || userService.getCurrentUser().getRole().equals(SecurityConsts.ADMIN)) {
+            service.delete(id);
+        }
+    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Post insert(@RequestBody PostRequest postRequest) throws NotFoundException {
+       postRequest.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+       postRequest.setUserId(userService.getCurrentId());
+       return service.insert(postRequest, Post.class);
+    }
+
+    @PutMapping("/{id}")
+    public Post update(@PathVariable Integer id,@RequestBody PostRequest postRequest) throws NotFoundException{
+        postRequest.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+        postRequest.setUserId(userService.getCurrentId());
+        Post post = service.findById(id, Post.class);
+        if (Objects.equals(post.getUserId(), userService.getCurrentId()) || userService.getCurrentUser().getRole().equals(SecurityConsts.ADMIN)) {
+            return service.update(id,postRequest,Post.class);
+        }else {
+            return post;
+        }
+    }
+
+}

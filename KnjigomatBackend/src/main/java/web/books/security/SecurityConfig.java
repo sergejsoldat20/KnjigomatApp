@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .requestMatchers("/comments/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
                 .requestMatchers(HttpMethod.GET,"/comments/**").permitAll()
                 .requestMatchers("/photos/**").permitAll()
+                .requestMatchers("/posts/**").permitAll()
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

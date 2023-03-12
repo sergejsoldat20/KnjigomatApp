@@ -10,7 +10,7 @@ public class UserResponse {
     private String gender;
     private String email;
     private String username;
-    private String password;
+  //  private String password;
     private String role;
     private Boolean accountConfirmed;
     private String phoneNumber;
