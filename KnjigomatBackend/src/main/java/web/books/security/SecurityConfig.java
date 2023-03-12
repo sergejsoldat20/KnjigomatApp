@@ -4,6 +4,7 @@ package web.books.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -44,6 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/login").permitAll()
                 .requestMatchers("api/auth/register").permitAll()
+                .requestMatchers(HttpMethod.GET,"/comments/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
