@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "post", schema = "knjigomat", catalog = "")
+@Table(name = "post")
 
 public class PostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class PostEntity {
     private String condition;
     @OneToMany(mappedBy = "post")
     private List<CommentEntity> comments;
-    @OneToMany(mappedBy = "postByPostId")
+    @OneToMany(mappedBy = "post")
     private List<PhotoEntity> photos;
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)

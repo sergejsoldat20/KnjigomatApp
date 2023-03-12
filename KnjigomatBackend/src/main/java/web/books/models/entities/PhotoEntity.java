@@ -13,6 +13,6 @@ public class PhotoEntity {
     @Basic@Column(name = "photo_url")
     private String photoUrl;
     @ManyToOne@JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
-    private PostEntity postByPostId;
+    private PostEntity post;
 
 }

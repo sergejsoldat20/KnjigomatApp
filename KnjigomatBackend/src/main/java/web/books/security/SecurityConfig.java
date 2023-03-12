@@ -4,6 +4,7 @@ package web.books.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -46,6 +47,7 @@ public class SecurityConfig {
                 .requestMatchers("/messages/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
                 .requestMatchers("/users/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
                 .requestMatchers("/comments/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
+                .requestMatchers(HttpMethod.GET,"/comments/**").permitAll()
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
