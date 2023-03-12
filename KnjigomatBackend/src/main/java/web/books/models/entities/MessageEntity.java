@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "message", schema = "knjigomat", catalog = "")
+@Table(name = "message")
 public class MessageEntity implements BaseEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id@Column(name = "id")
@@ -23,10 +23,11 @@ public class MessageEntity implements BaseEntity<Integer> {
     private Integer senderId;
     @Basic@Column(name = "receiver_id")
     private Integer receiverId;
-    @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+   /* @ManyToOne
+    @JoinColumn(name = "receiver_id", referencedColumnName = "id", nullable = false)
     private UserEntity receiver;
     @ManyToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
-    private UserEntity sender;
+    @JoinColumn(name = "sender_id", referencedColumnName = "id", nullable = false)
+    private UserEntity sender;*/
+
 }

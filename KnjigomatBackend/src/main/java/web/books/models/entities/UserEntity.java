@@ -33,9 +33,9 @@ public class UserEntity implements BaseEntity<Integer> {
     private String phoneNumber;
     @OneToMany(mappedBy = "user")
     private List<CommentEntity> comments;
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiverId")
     private List<MessageEntity> messagesReceived;
-    @OneToMany(mappedBy = "sender")
+    @OneToMany(mappedBy = "senderId")
     private List<MessageEntity> messagesSent;
     @OneToMany(mappedBy = "user")
     private List<PostEntity> posts;
