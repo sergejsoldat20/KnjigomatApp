@@ -1,9 +1,11 @@
 package web.books.controllers;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("photos")
+@CrossOrigin("http://localhost:3000")
+@RequestMapping("/photos")
 public class PhotoController {
 }

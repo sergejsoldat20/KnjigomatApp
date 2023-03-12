@@ -10,6 +10,7 @@ import web.books.services.UserService;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/messages")
 public class MessagesController {
 
@@ -26,7 +27,7 @@ public class MessagesController {
         messageService.sendMessage(request.getText(), id);
     }
 
-    @GetMapping("for-chat/{id}")
+    @GetMapping("/for-chat/{id}")
     public List<Message> getMessagesForChat(@PathVariable Integer id){
         return messageService.getMessagesWithUser(id);
     }
