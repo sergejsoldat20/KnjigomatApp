@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/comments")
 public class CommentController {
     private final CommentService service;
@@ -42,7 +43,7 @@ public class CommentController {
         return service.insert(commentRequest, Comment.class);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) throws NotFoundException {
         Comment comment = service.findById(id, Comment.class);
         if (Objects.equals(comment.getUserId(), userService.getCurrentId()) || userService.getCurrentUser().getRole().equals(SecurityConsts.ADMIN)) {
