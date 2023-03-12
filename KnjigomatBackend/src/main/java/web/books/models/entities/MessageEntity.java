@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "message", schema = "knjigomat", catalog = "")
 public class MessageEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id@Column(name = "id")
     private Integer id;
     @Basic@Column(name = "text")

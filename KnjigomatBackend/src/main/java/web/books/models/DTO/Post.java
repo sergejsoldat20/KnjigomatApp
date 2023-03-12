@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Data
-public class PostDTO {
+public class Post {
         private Integer id;
         private String name;
         private String description;

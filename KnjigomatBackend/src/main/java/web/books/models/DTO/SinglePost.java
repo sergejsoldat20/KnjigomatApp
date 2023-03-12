@@ -9,7 +9,7 @@ import web.books.models.entities.PhotoEntity;
 import java.util.List;
 
 @Data
-public class SinglePostoDTO extends PostDTO{
-    private List<CommentEntity> comments;
-    private List<PhotoEntity> photos;
+public class SinglePost extends Post{
+    private List<Comment> comments;
+    private List<Photo> photos;
 }

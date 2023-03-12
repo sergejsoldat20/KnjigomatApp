@@ -1,14 +1,18 @@
 package web.books.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
+import web.books.base.BaseEntity;
+import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Data
 @Entity
-@Table(name = "user", schema = "knjigomat", catalog = "")
-public class UserEntity {
+@Table(name = "user")
+public class UserEntity implements BaseEntity<Integer> {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id@Column(name = "id")
     private Integer id;
     @Basic
@@ -45,6 +49,8 @@ public class UserEntity {
     @OneToMany(mappedBy = "sender")
     private List<MessageEntity> messagesSent;
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<PostEntity> posts;
+
 
 }

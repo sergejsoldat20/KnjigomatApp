@@ -7,6 +7,7 @@ import lombok.*;
 @Entity
 @Table(name = "photo", schema = "knjigomat", catalog = "")
 public class PhotoEntity {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id@Column(name = "id")
     private Integer id;
     @Basic

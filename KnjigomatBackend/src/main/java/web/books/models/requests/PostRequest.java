@@ -1,5 +1,7 @@
-package web.books.models.request;
+package web.books.models.requests;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -16,11 +18,15 @@ import java.util.List;
 public class PostRequest {
     private String name;
     private String description;
+
     private BigDecimal price;
+
     private String authorName;
     private Timestamp createdTime;
-    private Boolean deleted;
-    private String conditionName;
+    private String condition;
     private Integer categoryId;
     private Integer userId;
+
+
 }
+
