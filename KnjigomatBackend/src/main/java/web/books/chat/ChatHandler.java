@@ -38,14 +38,9 @@ public class ChatHandler extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-       /* ObjectMapper mapper = new ObjectMapper();
-        Message chatMessage = mapper.readValue(message.getPayload(), Message.class);
-        String receiverId = chatMessage.getReceiverId().toString();
-        WebSocketSession receiverSession = sessions.get(receiverId);
-        if (receiverSession != null && receiverSession.isOpen()) {
-            chatMessage.setSenderName(userNames.get(chatMessage.getSenderId()));
-            receiverSession.sendMessage(new TextMessage(mapper.writeValueAsString(chatMessage)));
-        }*/
+       /*
+       override this method
+        */
     }
 
     @Override
