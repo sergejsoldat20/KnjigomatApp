@@ -16,6 +16,7 @@ import web.books.services.UserService;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/comments")
@@ -43,6 +44,9 @@ public class CommentController {
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable Integer id) throws NotFoundException {
-        service.delete(id);
+        Comment comment = service.findById(id, Comment.class);
+        if (Objects.equals(comment.getUserId(), userService.getCurrentId()) || userService.getCurrentUser().getRole().equals(SecurityConsts.ADMIN)) {
+            service.delete(id);
+        }
     }
 }
