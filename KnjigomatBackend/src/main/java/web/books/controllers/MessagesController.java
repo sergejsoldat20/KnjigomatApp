@@ -10,7 +10,7 @@ import web.books.services.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("messages")
+@RequestMapping("/messages")
 public class MessagesController {
 
     private MessageService messageService;
@@ -22,13 +22,11 @@ public class MessagesController {
     }
 
     @PostMapping("/send-message/{id}")
-    @PreAuthorize("hasRole(SecurityConsts.USER) || hasRole(SecurityConsts.ADMIN)")
     public void sendMessage(@PathVariable Integer id, @RequestBody MessageRequest request) {
         messageService.sendMessage(request.getText(), id);
     }
 
     @GetMapping("for-chat/{id}")
-    @PreAuthorize("hasRole(SecurityConsts.USER) || hasRole(SecurityConsts.ADMIN)")
     public List<Message> getMessagesForChat(@PathVariable Integer id){
         return messageService.getMessagesWithUser(id);
     }

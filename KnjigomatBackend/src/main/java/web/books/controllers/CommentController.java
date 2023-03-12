@@ -22,25 +22,26 @@ import java.util.List;
 public class CommentController {
     private final CommentService service;
     private final UserService userService;
+
     public CommentController(CommentService service,UserService userService){
         this.service = service;
         this.userService = userService;
     }
+
     @GetMapping("/posts/{id}")
-    @PermitAll
     public List<Comment> getAllByPostId(@PathVariable Integer id) {
         return service.getAllByPostId(id);
     }
+
     @PostMapping("/posts/{id}")
-    @PreAuthorize("hasRole(SecurityContst.USER) || hasRole(SecurityContst.ADMIN)")
     public Comment insert(@PathVariable Integer id, @RequestBody CommentRequest commentRequest) throws NotFoundException{
         commentRequest.setCreatedTime(new Timestamp(System.currentTimeMillis()));
         commentRequest.setPostId(id);
         commentRequest.setUserId(userService.getCurrentId());
         return service.insert(commentRequest, Comment.class);
     }
+
     @DeleteMapping("{id}")
-    @PreAuthorize("hasRole(SecurityContst.USER) || hasRole(SecurityContst.ADMIN)")
     public void delete(@PathVariable Integer id) throws NotFoundException {
         service.delete(id);
     }

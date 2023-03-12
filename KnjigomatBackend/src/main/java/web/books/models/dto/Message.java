@@ -9,8 +9,8 @@ public class Message {
 
     public static String setChatID(Integer senderId, Integer receiverId){
         return senderId > receiverId ?
-                senderId.toString().concat(receiverId.toString()) :
-                receiverId.toString().concat(senderId.toString());
+                senderId.toString().concat("#" + receiverId.toString()) :
+                receiverId.toString().concat("#" + senderId.toString());
     }
     private String chatId;
     private Integer senderId;
