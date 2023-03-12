@@ -19,15 +19,14 @@ public class MessageEntity implements BaseEntity<Integer> {
     private Timestamp createdTime;
     @Basic@Column(name = "chat_id")
     private String chatId;
-    /*@Basic@Column(name = "sender_id")
+    @Basic@Column(name = "sender_id")
     private Integer senderId;
     @Basic@Column(name = "receiver_id")
-    private Integer receiverId;*/
+    private Integer receiverId;
     @ManyToOne
-    @JoinColumn(name = "receiver_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
     private UserEntity receiver;
     @ManyToOne
-    @JoinColumn(name = "sender_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
     private UserEntity sender;
-
 }
