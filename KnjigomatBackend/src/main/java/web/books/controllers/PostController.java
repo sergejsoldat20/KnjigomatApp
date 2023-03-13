@@ -13,6 +13,7 @@ import web.books.services.UserService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
@@ -76,6 +77,20 @@ public class PostController {
         }else {
             return post;
         }
+    }
+    @GetMapping("/price-between")
+    public Page<Post> getAllFilteredByPriceIsBetween(Pageable page, @RequestParam BigDecimal lowest,@RequestParam BigDecimal highest) {
+        return service.getAllFilteredByPriceIsBetween(page, lowest,highest);
+    }
+    @GetMapping("/author-name")
+    public Page<Post> getAllFilteredByAuthorName(Pageable page,@RequestParam String authorName){
+        String [] names = authorName.split("-");
+        String fullName = String.join(" ",names);
+        return service.getAllFilteredByAuthorName(page,fullName);
+    }
+    @GetMapping("/category-name")
+    public Page<Post> getAllFilteredByCategoryName(Pageable page,@RequestParam String categoryName){
+        return service.getAllFilteredByCategoryName(page, categoryName);
     }
 
 }
