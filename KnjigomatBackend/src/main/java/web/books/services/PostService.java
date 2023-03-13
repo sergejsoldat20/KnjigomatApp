@@ -5,12 +5,12 @@ import org.springframework.data.domain.Pageable;
 import web.books.base.CrudService;
 import web.books.models.dto.Post;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface PostService extends CrudService<Integer> {
     List<Post> getAllByUserId(Integer id);
-  // Page<Post> getAllFilteredByTime(Pageable page, String createdTime);
-   List<Post> getAll();
+    List<Post> getAll();
     <T> Page<T> findAll(Pageable page, Class<T> resultDtoClass);
     Page<Post> getAllFilteredByAuthorName(Pageable page, String authorName);
     Page<Post> getAllFilteredByCategoryName(Pageable page, String categoryName);

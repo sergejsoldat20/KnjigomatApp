@@ -60,8 +60,6 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
 
     @Override
     public Page<Post> getAllFilteredByAuthorName(Pageable page, String authorName) {
-        System.out.println(authorName);
-
         List<Post> filteredByAuthorName = repository
                 .getAllByAuthorName(authorName)
                 .stream()
@@ -70,8 +68,6 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
     }
     @Override
     public Page<Post> getAllFilteredByCategoryName(Pageable page, String categoryName) {
-        System.out.println(categoryName);
-
         List<Post> filteredByCategoryName = repository
                 .getAllByCategoryName(categoryName)
                 .stream()
@@ -81,7 +77,6 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
 
     @Override
     public Page<Post> getAllFilteredByPriceIsBetween(Pageable page, BigDecimal lowest, BigDecimal highest) {
-        System.out.println(lowest+"-"+highest);
         List<Post> filteredByPriceIsBetween = repository
                 .getAllByPriceIsBetween(lowest,highest)
                 .stream()
@@ -95,25 +90,4 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
 
         return new PageImpl<>(postList.subList(start, end), page, postList.size());
     }
-    /*
-    @Override
-    public Page<Post> getAllFilteredByTime(Pageable page, String createdTime) {
-        LocalDate date = LocalDate.parse(createdTime);
-        System.out.println(createdTime);
-
-        List<Post> filteredByTime = repository
-                .findAll()
-                .stream()
-                .filter(x -> x.getCreatedTime().toLocalDateTime().toLocalDate().equals(date))
-                .map(m -> modelMapper.map(m, Post.class))
-                .collect(Collectors.toList());
-        int pageSize = page.getPageSize();
-        int start = page.getPageNumber() * pageSize;
-        int end = Math.min((page.getPageNumber() + 1) * pageSize, filteredByTime.size());
-
-
-        return new PageImpl<>(filteredByTime.subList(start, end), page, filteredByTime.size());
-    }
-
- */
 }
