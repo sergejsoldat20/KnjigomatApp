@@ -1,5 +1,7 @@
 package web.books.repositories;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import web.books.models.dto.Post;
 import web.books.models.entities.PostEntity;

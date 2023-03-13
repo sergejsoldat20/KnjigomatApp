@@ -5,7 +5,6 @@ import org.springframework.data.domain.Pageable;
 import web.books.base.CrudService;
 import web.books.models.dto.Post;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public interface PostService extends CrudService<Integer> {
@@ -17,4 +16,5 @@ public interface PostService extends CrudService<Integer> {
     Page<Post> getAllFilteredByCategoryName(Pageable page, String categoryName);
     Page<Post> getAllFilteredByPriceIsBetween(Pageable page, BigDecimal lowest, BigDecimal highest);
 
+    Page<Post> searchByName(Pageable page, String query);
 }
