@@ -1,11 +1,15 @@
 package web.books.services.impl;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import web.books.base.CrudJpaService;
 import web.books.models.dto.Post;
 import web.books.models.entities.PostEntity;
 import web.books.repositories.PostEntityRepository;
+import web.books.search.SearchAlgorithm;
 import web.books.services.PostService;
 
 import java.util.Comparator;
@@ -33,6 +37,18 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
                 return o2.getCreatedTime().compareTo(o1.getCreatedTime());
             }
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<Post> searchByName(Pageable page, String query) {
+        List<Post> searchedPosts = repository
+                .findAll()
+                .stream()
+                .filter(x -> SearchAlgorithm.isSimilarToAnyToken(x.getName(), query, 3))
+                .map(x -> modelMapper.map(x, Post.class))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(searchedPosts, page, searchedPosts.size());
     }
 
     @Override

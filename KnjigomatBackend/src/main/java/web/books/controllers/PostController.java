@@ -7,6 +7,7 @@ import web.books.exceptions.NotFoundException;
 import web.books.models.dto.Comment;
 import web.books.models.dto.Post;
 import web.books.models.requests.PostRequest;
+import web.books.models.requests.SearchRequest;
 import web.books.security.SecurityConsts;
 import web.books.services.PostService;
 import web.books.services.UserService;
@@ -45,11 +46,16 @@ public class PostController {
     public Post findById(@PathVariable Integer id) throws NotFoundException {
         return service.findById(id, Post.class);
     }
+
     @GetMapping("/users/{id}")
     public List<Post> getAllByUserId (@PathVariable Integer id) throws NotFoundException {
         return  service.getAllByUserId(id);
     }
 
+    @GetMapping("/search")
+    public Page<Post> search(Pageable page, @RequestBody SearchRequest request){
+        return service.searchByName(page, request.getQuery());
+    }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) throws NotFoundException {

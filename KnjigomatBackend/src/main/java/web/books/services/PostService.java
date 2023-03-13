@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface PostService extends CrudService<Integer> {
     List<Post> getAllByUserId(Integer id);
-  // Page<Post> getAllFilteredByTime(Pageable page, String createdTime);
-   List<Post> getAll();
+   // Page<Post> getAllFilteredByTime(Pageable page, String createdTime);
+    List<Post> getAll();
     <T> Page<T> findAll(Pageable page, Class<T> resultDtoClass);
+    Page<Post> searchByName(Pageable page, String query);
 }
