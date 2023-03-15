@@ -3,6 +3,8 @@ package web.books.controllers;
 
 import jakarta.annotation.security.PermitAll;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +30,19 @@ public class UserController {
     public List<User> getAll(){
        return userService.getAllUsers();
     }
+
     @GetMapping("/current-role")
     public String getCurrentRole() {
         return userService.getCurrentRole();
     }
-    @GetMapping("/users/chat-users")
-    public List<User> getChatUsers() {
-        return null;
+
+    @GetMapping("/chat-users")
+    public ResponseEntity<List<User>> getChatUsers() {
+        List<User> result = userService.getUsersWithChat();
+        if(result != null) {
+            return ResponseEntity.ok(result);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

@@ -59,7 +59,11 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
 
     @Override
     public List<User> getUsersWithChat() {
-        return null;
+         return repository
+                .findChatPartners(getCurrentId())
+                .stream()
+                .map(u -> getModelMapper().map(u, User.class))
+                .collect(Collectors.toList());
     }
 
     @Override
