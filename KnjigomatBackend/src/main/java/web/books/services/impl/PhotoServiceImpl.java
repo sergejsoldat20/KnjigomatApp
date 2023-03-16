@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Service
 public class PhotoServiceImpl extends CrudJpaService<PhotoEntity, Integer> implements PhotoService {
-    private PhotoEntityRepository repository;
+    private final PhotoEntityRepository repository;
     private final Cloudinary cloudinary;
 
     public PhotoServiceImpl(PhotoEntityRepository repository, ModelMapper modelMapper, Cloudinary cloudinary) {

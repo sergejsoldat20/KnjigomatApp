@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 @Service
 public class MessageServiceImpl extends CrudJpaService<MessageEntity, Integer> implements MessageService {
 
-    private MessageEntityRepository repository;
-    private ModelMapper modelMapper;
-    private UserService userService;
+    private final MessageEntityRepository repository;
+    private final ModelMapper modelMapper;
+    private final UserService userService;
 
     public MessageServiceImpl(MessageEntityRepository repository, ModelMapper modelMapper, UserService userService) {
         super(repository, modelMapper, MessageEntity.class);
@@ -42,9 +42,8 @@ public class MessageServiceImpl extends CrudJpaService<MessageEntity, Integer> i
     @Override
     public List<Message> getMessagesWithUser(Integer id) {
         Integer senderId = userService.getCurrentId();
-        Integer receiverId = id;
         return repository
-                .getAllByChatId(Message.setChatID(senderId, receiverId))
+                .getAllByChatId(Message.setChatID(senderId, id))
                 .stream()
                 .map(e -> modelMapper.map(e, Message.class))
                 .collect(Collectors.toList());

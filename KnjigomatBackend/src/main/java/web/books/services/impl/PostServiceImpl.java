@@ -41,6 +41,7 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
         }).collect(Collectors.toList());
     }
 
+    // ako se vise od tri karaktera u rijeci ne poklapaju bice false 
     @Override
     public Page<Post> searchByName(Pageable page, String query) {
         List<Post> searchedPosts = repository
@@ -49,7 +50,6 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
                 .filter(x -> SearchAlgorithm.isSimilarToAnyToken(x.getName(), query, 3))
                 .map(x -> modelMapper.map(x, Post.class))
                 .collect(Collectors.toList());
-
         return new PageImpl<>(searchedPosts, page, searchedPosts.size());
     }
 
@@ -66,6 +66,7 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
                 .map(m -> modelMapper.map(m, Post.class)).toList();
         return getPostsPageable(page, filteredByAuthorName);
     }
+
     @Override
     public Page<Post> getAllFilteredByCategoryName(Pageable page, String categoryName) {
         List<Post> filteredByCategoryName = repository
@@ -83,6 +84,7 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
                 .map(m->modelMapper.map(m,Post.class)).toList();
         return getPostsPageable(page,filteredByPriceIsBetween);
     }
+
     private Page<Post> getPostsPageable(Pageable page, List<Post> postList) {
         int pageSize = page.getPageSize();
         int start = page.getPageNumber() * pageSize;

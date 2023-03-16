@@ -23,13 +23,12 @@ import java.util.Objects;
 @RequestMapping("/posts")
 public class PostController {
 
-    @Autowired
     private final PostService service;
-    @Autowired
+
     private final UserService userService;
 
-    public PostController(PostService servise, UserService userService) {
-        this.service = servise;
+    public PostController(PostService service, UserService userService) {
+        this.service = service;
         this.userService = userService;
     }
 
@@ -65,6 +64,7 @@ public class PostController {
             service.delete(id);
         }
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Post insert(@RequestBody PostRequest postRequest) throws NotFoundException {
@@ -84,19 +84,21 @@ public class PostController {
             return post;
         }
     }
+
     @GetMapping("/price-between")
     public Page<Post> getAllFilteredByPriceIsBetween(Pageable page, @RequestParam BigDecimal lowest,@RequestParam BigDecimal highest) {
         return service.getAllFilteredByPriceIsBetween(page, lowest,highest);
     }
+
     @GetMapping("/author-name")
     public Page<Post> getAllFilteredByAuthorName(Pageable page,@RequestParam String authorName){
         String [] names = authorName.split("-");
         String fullName = String.join(" ",names);
         return service.getAllFilteredByAuthorName(page,fullName);
     }
+
     @GetMapping("/category-name")
     public Page<Post> getAllFilteredByCategoryName(Pageable page,@RequestParam String categoryName){
         return service.getAllFilteredByCategoryName(page, categoryName);
     }
-
 }

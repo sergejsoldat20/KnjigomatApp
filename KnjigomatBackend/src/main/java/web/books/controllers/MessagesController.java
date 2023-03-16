@@ -14,12 +14,10 @@ import java.util.List;
 @RequestMapping("/messages")
 public class MessagesController {
 
-    private MessageService messageService;
-    private UserService userService;
+    private final MessageService messageService;
 
-    public MessagesController(MessageService messageService, UserService userService){
+    public MessagesController(MessageService messageService){
         this.messageService = messageService;
-        this.userService = userService;
     }
 
     @PostMapping("/send-message/{id}")
@@ -31,5 +29,4 @@ public class MessagesController {
     public List<Message> getMessagesForChat(@PathVariable Integer id){
         return messageService.getMessagesWithUser(id);
     }
-
 }
