@@ -7,6 +7,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import SinglePost from "./pages/SinglePost";
 
 function App() {
   return (
@@ -16,8 +17,10 @@ function App() {
         <Routes>
           <Route exact path="/" element={<LogIn />} />
           <Route element={<PrivateRoutes />}>
-            <Route exact path="/home" element={<Home />} />
+            {/* <Route exact path="/home" element={<Home />} /> */}
           </Route>
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/posts/:id" element={<SinglePost />} />
         </Routes>
       </Router>
     </div>
