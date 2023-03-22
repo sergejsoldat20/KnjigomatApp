@@ -36,24 +36,16 @@ export default function Navbar() {
           alt=""
         />
       </a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-
       <div className="collapse navbar-collapse " id="navbarSupportedContent">
         <ul className="navbar-nav" style={{ paddingLeft: "3rem" }}>
           <li className="nav-item active">
             <a className="nav-link">Početna</a>
           </li>
-
+          <li className="nav-item active">
+            <a className="nav-link" style={{ paddingLeft: "2rem" }} href="/">
+              Dodaj
+            </a>
+          </li>
           <li className="nav-item active">
             <a
               className="nav-link"
@@ -64,28 +56,32 @@ export default function Navbar() {
             </a>
           </li>
         </ul>
-        <ul
-          className="navbar-nav"
-          style={{ paddingLeft: "25rem", width: "100%" }}
-        >
+        <ul className="navbar-nav" style={{ paddingLeft: "15rem" }}>
           <input
             className="form-control"
             type="search"
             placeholder="Search"
             aria-label="Search"
             style={{
-              width: "60%",
+              width: 400,
               borderRadius: "8px",
+              height: 40,
             }}
           />
 
-          <button className="btn btn-outline-success " type="submit">
+          <button
+            className="btn btn-outline-success "
+            type="submit"
+            style={{ hight: 20 }}
+          >
             Pretraga
           </button>
-          <li className="nav-item active" style={{ paddingLeft: "3rem" }}>
+          <li className="nav-item active" style={{ paddingLeft: "4rem" }}>
             <Link className="btn btn-outline-info" to={"/"}>
               Prijavi se
             </Link>
+          </li>
+          <li className="nav-item active" style={{ paddingLeft: "1rem" }}>
             <Button className="btn btn-outline-danger mx-3" onClick={logout}>
               Odjavi se
             </Button>
