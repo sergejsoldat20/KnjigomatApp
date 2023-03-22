@@ -1,12 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import postService from "../services/postService";
 import { PropTypes } from "prop-types";
-import { Box } from "@mui/material";
-
 import { Card, Image } from "antd";
-import { FileImageFilled } from "@ant-design/icons";
-
 const { Meta } = Card;
 const ViewMiniPost = (props) => {
   const [post, setPost] = useState({
@@ -38,15 +33,10 @@ const ViewMiniPost = (props) => {
     });
   };
   const loadFirstPhoto = () => {
-    postService.getFirstPhotoByPostId(post.id).then((result) => {
+    postService.getFirstPhotoByPostId(props.id).then((result) => {
       setFirstPhoto(result.data);
     });
   };
-  // const [imageLoaded, setImageLoaded] = useState(false);
-
-  // const handleImageLoad = () => {
-  //   setImageLoaded(true);
-  // };
   return (
     <Card style={{ width: 280 }}>
       <Image
