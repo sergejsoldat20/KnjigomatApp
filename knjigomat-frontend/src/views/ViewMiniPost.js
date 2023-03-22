@@ -68,35 +68,4 @@ const ViewMiniPost = (props) => {
 ViewMiniPost.propTypes = {
   id: PropTypes.number,
 };
-// <Box
-//   sx={{
-//     display: "grid",
-//     gridTemplateColumns: "repeat(2,1fr)",
-//     boxShadow: 3,
-//     borderRadius: 2,
-//   }}
-// >
-{
-  /* <Card style={{ textAlign: "left" }}>
-        <p>
-          <b>Autor :</b> {post.authorName}
-        </p>
-        <p>
-          <b>Kategorija :</b> {post.categoryName}
-        </p>
-        <p>
-          <b>Stanje :</b> {post.state}
-        </p>
-        <p>
-          <b>Opis :</b> {post.description}
-        </p>
-        <p>
-          <b>Datum :</b> {post.createdTime.split("T")[0]}
-        </p>
-        <p>
-          <b>Objavio :</b> {post.userUsername}
-        </p>
-      </Card> 
-     </Box> */
-}
 export default ViewMiniPost;
