@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @RequestMapping("/posts")
 public class PostController {
 
@@ -96,9 +97,38 @@ public class PostController {
         String fullName = String.join(" ",names);
         return service.getAllFilteredByAuthorName(page,fullName);
     }
-
     @GetMapping("/category-name")
     public Page<Post> getAllFilteredByCategoryName(Pageable page,@RequestParam String categoryName){
         return service.getAllFilteredByCategoryName(page, categoryName);
+    }
+    @GetMapping("/filtered")
+    public Page<Post> getAllFilteredPosts(
+            Pageable page,
+            @RequestParam(required = false) BigDecimal priceFrom,
+            @RequestParam(required = false) BigDecimal priceTo,
+            @RequestParam(required = false) String categoryName,
+            @RequestParam(required = false) String authorName
+    ) {
+        if(authorName!=null) {
+            String[] names = authorName.split("-");
+            authorName = String.join(" ", names);
+        }
+        System.out.println(priceFrom);
+        System.out.println(priceTo);
+        System.out.println(categoryName);
+        System.out.println(authorName);
+        return service.getFiltered(page,priceFrom,priceTo,categoryName,authorName);
+    }
+    @GetMapping("/users/{id}/paginated")
+    public Page<Post> getAllByUserIdPaginated(Pageable page,@PathVariable Integer id){
+        return service.getAllByUserIdPaginated(page,id);
+    }
+    @GetMapping("/all-authors")
+    public List<String> getAllDistinctAuthors(){
+        return service.getAllDistinctAuthors();
+    }
+    @GetMapping("/all-categories")
+    public List<String> getAllDistinctCategories(){
+        return service.getAllDistinctCategories();
     }
 }

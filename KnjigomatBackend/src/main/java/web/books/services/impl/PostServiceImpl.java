@@ -55,7 +55,13 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
 
     @Override
     public List<Post> getAllByUserId(Integer id) {
-        return repository.getAllByUser_Id(id).stream().map(a->modelMapper.map(a,Post.class)).collect(Collectors.toList());
+        return repository.getAllByUserId(id).stream().map(a->modelMapper.map(a,Post.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<Post> getAllByUserIdPaginated(Pageable page, Integer id) {
+        List<Post> postsByUserId = getAllByUserId(id);
+        return getPostsPageable(page,postsByUserId);
     }
 
     @Override
@@ -83,6 +89,25 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
                 .stream()
                 .map(m->modelMapper.map(m,Post.class)).toList();
         return getPostsPageable(page,filteredByPriceIsBetween);
+    }
+
+    @Override
+    public Page<Post> getFiltered(Pageable page, BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName) {
+        List<Post> filtered = repository
+                .filteredPosts(priceFrom,priceTo,categoryName,authorName)
+                .stream()
+                .map(m->modelMapper.map(m,Post.class)).toList();
+        return getPostsPageable(page,filtered);
+    }
+
+    @Override
+    public List<String> getAllDistinctAuthors() {
+        return repository.getAllDistinctAuthors();
+    }
+
+    @Override
+    public List<String> getAllDistinctCategories() {
+        return repository.getAllDistinctCategories();
     }
 
     private Page<Post> getPostsPageable(Pageable page, List<Post> postList) {

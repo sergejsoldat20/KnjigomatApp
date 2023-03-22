@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import web.books.models.dto.User;
+import web.books.models.dto.UserResponse;
 import web.books.services.UserService;
 
 import java.util.List;
@@ -34,6 +35,11 @@ public class UserController {
     @GetMapping("/current-role")
     public String getCurrentRole() {
         return userService.getCurrentRole();
+    }
+    @GetMapping("/current-user")
+    public ResponseEntity<UserResponse> getCurrentUser() {
+        UserResponse currentUser = userService.getCurrentUser();
+        return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
     @GetMapping("/chat-users")
