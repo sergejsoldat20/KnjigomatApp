@@ -1,132 +1,97 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import { Button } from "antd";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { MenuOutlined } from "@ant-design/icons";
-import { Menu } from "antd";
+// import Navbar from "react-bootstrap/Navbar";
+// import CheckIfUser from "../utils/CheckIfUser";
 
-import CheckIfAdmin from "../utils/CheckIfAdmin";
 export default function Navbar() {
   const navigate = useNavigate();
-  const [current, setCurrent] = useState("mail");
-  const onClick = (e) => {
-    console.log("click ", e);
-    setCurrent(e.key);
-  };
 
-  const checkIfAuthorized = () => {
-    const token = localStorage.getItem("jwt");
-    if (token) return true;
-    else return false;
-  };
+  // const checkIfAuthorized = () => {
+  //   const token = localStorage.getItem("jwt");
+  //   if (token) return true;
+  //   else return false;
+  // };
 
   const logout = () => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("role");
     navigate("/");
   };
-  const guestItems = [
-    {
-      label: <a style={{ textDecoration: "none" }}>LIS</a>,
-      key: "home",
-      style: {
-        color: "blue",
-        fontFamily: "Sans-Serif",
-        fontStyle: "italic",
-        float: "left",
-        fontSize: 35,
-        textDecoration: "none",
-      },
-    },
-  ];
-  const userItems = [
-    {
-      label: <a style={{ textDecoration: "none" }}>LIS</a>,
-      key: "home",
-      style: {
-        color: "blue",
-        fontFamily: "Sans-Serif",
-        fontStyle: "italic",
-        float: "left",
-        fontSize: 35,
-        textDecoration: "none",
-      },
-    },
-    {
-      label: "Pacijenti",
-      key: "submenu:1",
-      style: { float: "left" },
-      children: [
-        {
-          label: <a style={{ textDecoration: "none" }}>Dodaj</a>,
-          key: "setting:1",
-        },
-        {
-          label: <a style={{ textDecoration: "none" }}>Pregled</a>,
-          key: "setting:2",
-        },
-      ],
-    },
-    {
-      label: "Nalazi",
-      key: "submenu:2",
-      style: { float: "left" },
-      children: [
-        {
-          label: <a style={{ textDecoration: "none" }}>Dodaj</a>,
-          key: "setting:3",
-        },
-        {
-          label: <a style={{ textDecoration: "none" }}>Pregled</a>,
-          key: "setting:4",
-        },
-      ],
-    },
-    {
-      label: <a style={{ textDecoration: "none" }}>Profil</a>,
-      key: "submenu:3",
-      style: { float: "left" },
-    },
-    {
-      key: "submenu:4",
-      style: { float: "right" },
-      icon: <MenuOutlined />,
-      children: [
-        CheckIfAdmin() && {
-          label: <a style={{ textDecoration: "none" }}>Dodaj korisnika</a>,
-          key: "setting:5",
-        },
-        CheckIfAdmin() && {
-          label: <a style={{ textDecoration: "none" }}>Pregled korisnika</a>,
-          key: "setting:6",
-        },
-        {
-          label: (
-            <a onClick={logout} style={{ textDecoration: "none" }}>
-              Log out
-            </a>
-          ),
-          key: "setting:7",
-        },
-      ],
-    },
-  ];
-  //   const navbarItems = checkIfAuthorized() ? userItems : guestItems;
-  const navbarItems = userItems;
-
   return (
-    <Menu
-      onClick={onClick}
-      selectedKeys={[current]}
-      mode="horizontal"
-      items={navbarItems}
+    <nav
+      className="navbar navbar-expand-lg navbar-light bg-light  "
       style={{
-        display: "block",
         fontSize: 25,
-        background: " #D1D1D1",
-        opacity: "0.8",
-        margin: "20px",
-        padding: "12px",
+        // background: " #D1D1D1",
+        // margin: "15px",
+        // padding: "12px",
       }}
-    />
+    >
+      <a className="navbar-brand">
+        <img
+          src="https://imageio.forbes.com/specials-images/imageserve/5f85be4ed0acaafe77436710/Stack-books-isolated-3d-rendering/960x0.jpg?format=jpg&width=960"
+          width="50"
+          height="40"
+          alt=""
+        />
+      </a>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon"></span>
+      </button>
+
+      <div className="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul className="navbar-nav" style={{ paddingLeft: "3rem" }}>
+          <li className="nav-item active">
+            <a className="nav-link">Početna</a>
+          </li>
+
+          <li className="nav-item active">
+            <a
+              className="nav-link"
+              style={{ paddingLeft: "2rem" }}
+              href="/profile"
+            >
+              Profil
+            </a>
+          </li>
+        </ul>
+        <ul
+          className="navbar-nav"
+          style={{ paddingLeft: "25rem", width: "100%" }}
+        >
+          <input
+            className="form-control"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            style={{
+              width: "60%",
+              borderRadius: "8px",
+            }}
+          />
+
+          <button className="btn btn-outline-success " type="submit">
+            Pretraga
+          </button>
+          <li className="nav-item active" style={{ paddingLeft: "3rem" }}>
+            <Link className="btn btn-outline-info" to={"/"}>
+              Prijavi se
+            </Link>
+            <Button className="btn btn-outline-danger mx-3" onClick={logout}>
+              Odjavi se
+            </Button>
+          </li>
+        </ul>
+      </div>
+    </nav>
   );
 }

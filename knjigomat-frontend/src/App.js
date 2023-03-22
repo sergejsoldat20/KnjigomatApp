@@ -6,7 +6,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
+import AddUser from "./pages/AddUser";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import Profile from "./pages/Profile";
+//      <Route exact path="/" element={<LogIn />} />
 
 function App() {
   return (
@@ -15,6 +18,8 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<LogIn />} />
+          <Route exact path="/add-user" element={<AddUser />} />
+          <Route exact path="/profile" element={<Profile />} />
           <Route element={<PrivateRoutes />}>
             <Route exact path="/home" element={<Home />} />
           </Route>
