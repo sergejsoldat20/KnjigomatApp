@@ -11,7 +11,8 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("photos")
+@CrossOrigin("http://localhost:3000")
+@RequestMapping("/photos")
 public class PhotoController {
 
     private PhotoService photoService;
@@ -20,9 +21,18 @@ public class PhotoController {
         this.photoService = photoService;
     }
 
-    @GetMapping("photos/by-post/{id}")
-    public List<Photo> getPhotosByPostId(Integer id){
+    @GetMapping("/by-post/{id}")
+    public List<Photo> getPhotosByPostId(@PathVariable Integer id){
         return photoService.getAllByPostId(id);
+    }
+    @GetMapping("/first-photo/by-post/{id}")
+    public Photo getFirstPhotoById(@PathVariable Integer id){
+        List<Photo> photos = photoService.getAllByPostId(id);
+        if (!photos.isEmpty()) {
+            return photos.get(0);
+        } else {
+            return null;
+        }
     }
 
     @PostMapping("/upload/{id}")

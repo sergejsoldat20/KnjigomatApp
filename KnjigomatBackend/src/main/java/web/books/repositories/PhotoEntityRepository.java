@@ -8,5 +8,5 @@ import web.books.models.entities.PhotoEntity;
 import java.util.List;
 
 public interface PhotoEntityRepository extends JpaRepository<PhotoEntity, Integer>{
-    List<Photo> getAllByPostId(Integer id);
+    List<PhotoEntity> getAllByPostId(Integer id);
 }
