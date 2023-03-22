@@ -46,9 +46,11 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/messages/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
                 .requestMatchers("/users/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
+                .requestMatchers(HttpMethod.GET,"/comments/**").permitAll()
                 .requestMatchers("/comments/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
-                .requestMatchers(HttpMethod.GET,"/comments/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
-                .requestMatchers("/photos/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
+                .requestMatchers(HttpMethod.GET,"/photos/**").permitAll()
+                .requestMatchers("/photos/**").permitAll()
+                .requestMatchers(HttpMethod.GET,"/posts/**").permitAll()
                 .requestMatchers("/posts/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
 
                 .and()

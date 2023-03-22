@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import AddUser from "./pages/AddUser";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import SinglePost from "./pages/SinglePost";
 import Profile from "./pages/Profile";
 //      <Route exact path="/" element={<LogIn />} />
 
@@ -21,8 +22,10 @@ function App() {
           <Route exact path="/add-user" element={<AddUser />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route element={<PrivateRoutes />}>
-            <Route exact path="/home" element={<Home />} />
+            {/* <Route exact path="/home" element={<Home />} /> */}
           </Route>
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/posts/:id" element={<SinglePost />} />
         </Routes>
       </Router>
     </div>

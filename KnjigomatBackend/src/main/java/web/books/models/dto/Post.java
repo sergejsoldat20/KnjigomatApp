@@ -17,4 +17,6 @@ public class Post {
         private String state;
         private String categoryName;
         private Integer userId;
+        private String userUsername;
+        private String userGender;
 }

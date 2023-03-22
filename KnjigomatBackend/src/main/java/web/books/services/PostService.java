@@ -12,9 +12,12 @@ public interface PostService extends CrudService<Integer> {
     List<Post> getAllByUserId(Integer id);
     List<Post> getAll();
     <T> Page<T> findAll(Pageable page, Class<T> resultDtoClass);
+    Page<Post> getAllByUserIdPaginated(Pageable page, Integer id);
     Page<Post> getAllFilteredByAuthorName(Pageable page, String authorName);
     Page<Post> getAllFilteredByCategoryName(Pageable page, String categoryName);
     Page<Post> getAllFilteredByPriceIsBetween(Pageable page, BigDecimal lowest, BigDecimal highest);
-
+    Page<Post> getFiltered(Pageable page, BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName);
     Page<Post> searchByName(Pageable page, String query);
+    List<String> getAllDistinctAuthors();
+    List<String> getAllDistinctCategories();
 }

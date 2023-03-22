@@ -12,4 +12,5 @@ public class Comment {
     private Integer postId;
     private String userUsername;
     private Integer userId;
+    private String userGender;
 }
