@@ -1,8 +1,8 @@
 const getAvatar = (gender) => {
   if (gender === "M") {
-    return 0;
+    return "https://res.cloudinary.com/dmoekbwh0/image/upload/v1679492161/qtykickul5l9qgbr9hxl.png";
   } else {
-    return 1;
+    return "https://res.cloudinary.com/dmoekbwh0/image/upload/v1679493587/signal-2023-03-22-145826_003_pborwy.png";
   }
 };
 export default getAvatar;
