@@ -38,21 +38,23 @@ const ViewMiniPost = (props) => {
     });
   };
   return (
-    <Card style={{ width: 280 }}>
-      <Image
-        style={{ borderRadius: 10 }}
-        alt="example"
-        width={200}
-        height={200}
-        src={firstPhoto.photoUrl}
-      />
+    <a href={`/posts/${props.id}`} style={{ textDecoration: "none" }}>
+      <Card style={{ width: 280 }}>
+        <Image
+          style={{ borderRadius: 10 }}
+          alt="example"
+          width={200}
+          height={200}
+          src={firstPhoto.photoUrl}
+        />
 
-      <Meta
-        title={post.name}
-        description={<b style={{ color: "#595E60" }}>{`${post.price} KM`}</b>}
-        style={{ whiteSpace: "pre-line", paddingTop: 5 }}
-      />
-    </Card>
+        <Meta
+          title={post.name}
+          description={<b style={{ color: "#595E60" }}>{`${post.price} KM`}</b>}
+          style={{ whiteSpace: "pre-line", paddingTop: 5 }}
+        />
+      </Card>
+    </a>
   );
 };
 ViewMiniPost.propTypes = {

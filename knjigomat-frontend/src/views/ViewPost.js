@@ -50,10 +50,6 @@ const ViewPost = (props) => {
       setPhotos(result.data);
     });
   };
-  const avatars = [
-    "https://res.cloudinary.com/dmoekbwh0/image/upload/v1679492161/qtykickul5l9qgbr9hxl.png",
-    "https://res.cloudinary.com/dmoekbwh0/image/upload/v1679493587/signal-2023-03-22-145826_003_pborwy.png",
-  ];
   return (
     <Row>
       <Col span={12}>
@@ -123,7 +119,7 @@ const ViewPost = (props) => {
           >
             <a href={`/user/${post.userId}`}>
               <img
-                src={avatars[getAvatar(post.userGender)]}
+                src={getAvatar(post.userGender)}
                 alt="Not Found"
                 height={100}
                 width={100}

@@ -4,8 +4,7 @@ import postService from "../services/postService";
 import { PropTypes } from "prop-types";
 import { Box, Grid } from "@mui/material";
 import { Card, Image, Divider, Col, Row, Avatar, List } from "antd";
-import { Link, useParams } from "react-router-dom";
-import { fontSize } from "@mui/system";
+import getAvatar from "../utils/getAvatar";
 const { Meta } = Card;
 const ViewComments = (props) => {
   const [comments, setComments] = useState([]);
@@ -23,6 +22,7 @@ const ViewComments = (props) => {
       title: comment.userUsername,
       id: comment.userId,
       label: comment.text,
+      gender: comment.userGender,
     };
   });
   return (
@@ -34,8 +34,8 @@ const ViewComments = (props) => {
         <List.Item style={{ flex: "right", flexDirection: "row-reverse" }}>
           <List.Item.Meta
             avatar={
-              <a href="/users/102">
-                <Avatar src={`https://joesch.moe/api/v1/random?key=${index}`} />
+              <a href={`/users/${item.id}`}>
+                <Avatar src={getAvatar(item.gender)} />
               </a>
             }
             title={

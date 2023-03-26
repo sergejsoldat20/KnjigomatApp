@@ -39,6 +39,7 @@ export default function Home() {
   }, []);
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
+    window.scrollTo(0, 0);
   };
   const loadPosts = () => {
     postService
