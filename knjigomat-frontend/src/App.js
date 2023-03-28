@@ -10,6 +10,9 @@ import AddUser from "./pages/AddUser";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import SinglePost from "./pages/SinglePost";
 import Profile from "./pages/Profile";
+import UploadPost from "./pages/UploadPost";
+import Chat from "./pages/Chat";
+import ChatUsers from "./components/ChatUsers";
 //      <Route exact path="/" element={<LogIn />} />
 
 function App() {
@@ -19,6 +22,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route exact path="/" element={<LogIn />} />
+          <Route exact path="/upload-post" element={<UploadPost />} />
           <Route exact path="/add-user" element={<AddUser />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route element={<PrivateRoutes />}>
@@ -26,6 +30,8 @@ function App() {
           </Route>
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/posts/:id" element={<SinglePost />} />
+          <Route exact path="/chat" element={<Chat />} />
+          <Route exact path="/chat-users" element={<ChatUsers />} />
         </Routes>
       </Router>
     </div>
