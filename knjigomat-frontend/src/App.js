@@ -11,8 +11,7 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import SinglePost from "./pages/SinglePost";
 import Profile from "./pages/Profile";
 import UploadPost from "./pages/UploadPost";
-import Chat from "./pages/Chat";
-import ChatUsers from "./components/ChatUsers";
+import FullChat from "./components/FullChat";
 //      <Route exact path="/" element={<LogIn />} />
 
 function App() {
@@ -30,8 +29,7 @@ function App() {
           </Route>
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/posts/:id" element={<SinglePost />} />
-          <Route exact path="/chat" element={<Chat />} />
-          <Route exact path="/chat-users" element={<ChatUsers />} />
+          <Route exact path="/chat" element={<FullChat />} />
         </Routes>
       </Router>
     </div>
