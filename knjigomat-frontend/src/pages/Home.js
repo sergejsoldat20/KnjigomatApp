@@ -6,7 +6,7 @@ import {
   DollarOutlined,
   BookOutlined,
   UserOutlined,
-  SearchOutlined,
+  SortAscendingOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme, Select, Space, InputNumber, Button } from "antd";
 import postService from "../services/postService";
@@ -17,9 +17,10 @@ export default function Home() {
   const [selectedAuthor, setSelectedAuthor] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedSort, setSelectedSort] = useState("");
   const [priceFrom, setPriceFrom] = useState(0);
   const [priceTo, setPriceTo] = useState(0);
-  const allKeys = ["filter-1", "filter-2", "filter-3", "filter"];
+  const allKeys = ["filter-1", "filter-2", "filter-3", "filter-4", "refresh"];
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(16);
   const allPageSizes = [12, 16, 20];
@@ -41,6 +42,12 @@ export default function Home() {
     setCurrentPage(newPage);
     window.scrollTo(0, 0);
   };
+  const setSort = (n) => {
+    let sortByCriteria = "";
+    n > 1 ? (sortByCriteria += "price,") : (sortByCriteria += "createdTime,");
+    n % 2 === 0 ? (sortByCriteria += "desc") : (sortByCriteria += "asc");
+    setSelectedSort(sortByCriteria);
+  };
   const loadPosts = () => {
     postService
       .getFiltered(
@@ -49,7 +56,8 @@ export default function Home() {
         priceFrom,
         priceTo,
         selectedCategory,
-        selectedAuthor
+        selectedAuthor,
+        selectedSort
       )
       .then((result) => {
         setPosts(result.data.content);
@@ -67,7 +75,8 @@ export default function Home() {
     });
   };
   const { Content, Sider } = Layout;
-  const filters = ["Cijena", "Kategorija", "Autor", "Filtriraj"];
+  const filters = ["Cijena", "Kategorija", "Autor", "Sortiraj", "Osvjezi"];
+  const sortBy = ["Najnovije", "Najstarije", "Najskuplje", "Najjeftinije"];
   const items = [
     {
       key: allKeys[0],
@@ -80,12 +89,12 @@ export default function Home() {
               <InputNumber
                 onChange={(value) => setPriceFrom(value)}
                 placeholder="Od"
-                allowClear="true"
+                allowClear={true}
               />
               <InputNumber
                 onChange={(value) => setPriceTo(value)}
                 placeholder="Do"
-                allowClear="true"
+                allowClear={true}
               />
             </Space>
           ),
@@ -105,7 +114,7 @@ export default function Home() {
                 setSelectedCategory(selectedCategory);
               }}
               style={{ width: "100%" }}
-              allowClear="true"
+              allowClear={true}
             >
               {categories.map((category, index) => (
                 <Select.Option key={index} value={category}>
@@ -130,7 +139,7 @@ export default function Home() {
                 setSelectedAuthor(selectedAuthor);
               }}
               style={{ width: "100%" }}
-              allowClear="true"
+              allowClear={true}
             >
               {authors.map((author, index) => (
                 <Select.Option key={index} value={author}>
@@ -140,6 +149,36 @@ export default function Home() {
             </Select>
           ),
           key: "author",
+        },
+      ],
+    },
+    {
+      key: allKeys[3],
+      label: filters[3],
+      icon: React.createElement(SortAscendingOutlined),
+      children: [
+        {
+          label: (
+            <Select
+              onChange={(selectedCriteria, index) => {
+                if (index === undefined) {
+                  setSelectedSort(null);
+                } else {
+                  setSort(index.key);
+                  console.log(index.key);
+                }
+              }}
+              style={{ width: "100%" }}
+              allowClear={true}
+            >
+              {sortBy.map((sort, index) => (
+                <Select.Option key={index} value={sort}>
+                  {sort}
+                </Select.Option>
+              ))}
+            </Select>
+          ),
+          key: "sort",
         },
       ],
     },
@@ -170,11 +209,10 @@ export default function Home() {
             width={300}
             height={500}
           >
-            <b style={{ paddingLeft: 15, fontSize: 17 }}>Filteri</b>
             <Menu
               mode="inline"
               style={{
-                minHeight: 310,
+                minHeight: 420,
               }}
               items={items}
               expandIcon={() => null}
@@ -183,7 +221,7 @@ export default function Home() {
             />
             <Menu style={{ paddingLeft: 15 }}>
               <Button type="primary" onClick={filterPosts}>
-                Filtriraj
+                Osvjezi
               </Button>
             </Menu>
           </Sider>
