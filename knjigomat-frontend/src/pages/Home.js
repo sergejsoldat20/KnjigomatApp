@@ -165,7 +165,6 @@ export default function Home() {
                   setSelectedSort(null);
                 } else {
                   setSort(index.key);
-                  console.log(index.key);
                 }
               }}
               style={{ width: "100%" }}
