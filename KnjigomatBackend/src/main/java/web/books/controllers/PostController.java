@@ -5,11 +5,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import web.books.exceptions.NotFoundException;
-import web.books.models.dto.Comment;
+import web.books.models.dto.Category;
 import web.books.models.dto.Post;
 import web.books.models.requests.PostRequest;
 import web.books.models.requests.SearchRequest;
 import web.books.security.SecurityConsts;
+import web.books.services.CategoryService;
 import web.books.services.PostService;
 import web.books.services.UserService;
 import org.springframework.data.domain.Pageable;
@@ -26,11 +27,12 @@ import java.util.Objects;
 public class PostController {
 
     private final PostService service;
-
+    private final CategoryService categoryService;
     private final UserService userService;
 
-    public PostController(PostService service, UserService userService) {
+    public PostController(PostService service, CategoryService categoryService, UserService userService) {
         this.service = service;
+        this.categoryService = categoryService;
         this.userService = userService;
     }
 
@@ -98,10 +100,12 @@ public class PostController {
         String fullName = String.join(" ",names);
         return service.getAllFilteredByAuthorName(page,fullName);
     }
+
     @GetMapping("/category-name")
     public Page<Post> getAllFilteredByCategoryName(Pageable page,@RequestParam String categoryName){
         return service.getAllFilteredByCategoryName(page, categoryName);
     }
+
     @GetMapping("/filtered")
     public Page<Post> getAllFilteredPosts(
             Pageable page,
@@ -117,14 +121,17 @@ public class PostController {
         }
         return service.getFiltered(page,priceFrom,priceTo,categoryName,authorName,sort);
     }
+
     @GetMapping("/users/{id}/paginated")
     public Page<Post> getAllByUserIdPaginated(Pageable page,@PathVariable Integer id){
         return service.getAllByUserIdPaginated(page,id);
     }
+
     @GetMapping("/all-authors")
     public List<String> getAllDistinctAuthors(){
         return service.getAllDistinctAuthors();
     }
+
     @GetMapping("/all-categories")
     public List<String> getAllDistinctCategories(){
         return service.getAllDistinctCategories();

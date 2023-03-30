@@ -22,6 +22,10 @@ export const getAllFilteredByPriceIsBetween = (page, size, lowest, highest) => {
     `/posts/price-between?page=${page}&size=${size}&lowest=${lowest}&highest=${highest}`
   );
 };
+
+export const getAllCategories = () => {
+  return getInstance.get("/posts/categories");
+};
 export const gettAllFilteredByAuthorName = (page, size, authorName) => {
   return getInstance.get(
     `/posts/author-name?page=${page}&size=${size}&authorName=${authorName}`
@@ -83,6 +87,7 @@ export const getAllDistinctAuthors = () => {
 export const getAllDistinctCategories = () => {
   return getInstance.get(`/posts/all-categories`);
 };
+
 export default {
   getPostById,
   getAllByUserId,
@@ -97,6 +102,7 @@ export default {
   insertPost,
   updatePost,
   deletePost,
+  getAllCategories,
   getAllDistinctAuthors,
   getAllDistinctCategories,
   getFiltered,

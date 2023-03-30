@@ -4,6 +4,7 @@ import chatService from "../services/chatService";
 import userService from "../services/userService";
 import ChatList from "../components/ChatUsersComponent";
 import Chat from "../components/Chat";
+import { Grid } from "@mui/material";
 export default function FullChat() {
   const [messages, setMessages] = useState([]);
   const [chatUsers, setChatUsers] = useState([]);
@@ -44,15 +45,27 @@ export default function FullChat() {
     console.log(userId + "User ID");
   };
   return (
-    <div className="container text-center" style={{ float: "left" }}>
-      <div className="row">
-        <ChatList
-          users={chatUsers}
-          onSelectUser={onSelectUser}
-          receiverId={receiverId}
-        />
-        <Chat messages={messages} receiverId={receiverId} />
+    <Grid alignItems="center" justifyContent="center" className="text-center">
+      <div className="container">
+        <div className="rom">
+          <div className="col-md-8 offset-md-2 border rounder p-4 mt-2 shadow">
+            <h2 className="text-center m-4">Razgovori</h2>
+
+            <div className="card">
+              <div className="card-header">
+                <div className="row">
+                  <ChatList
+                    users={chatUsers}
+                    onSelectUser={onSelectUser}
+                    receiverId={receiverId}
+                  />
+                  <Chat messages={messages} receiverId={receiverId} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+    </Grid>
   );
 }
