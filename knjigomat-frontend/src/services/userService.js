@@ -1,6 +1,6 @@
 import base from "./baseService";
 
-const instance = base.service(false);
+const instance = base.service(true);
 
 export const insert = (user) => {
   return instance.post(`/users`, user);

@@ -10,7 +10,12 @@ export const sendMessage = (receiverId, message) => {
   return instance.post(`/messages/send-message/${receiverId}`, message);
 };
 
+export const getChatUsers = () => {
+  return instance.get(`/users/chat-users`);
+};
+
 export default {
   getChatMessages,
   sendMessage,
+  getChatUsers,
 };
