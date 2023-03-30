@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import web.books.base.CrudJpaService;
 import web.books.models.dto.Post;
@@ -92,9 +93,9 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
     }
 
     @Override
-    public Page<Post> getFiltered(Pageable page, BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName) {
+    public Page<Post> getFiltered(Pageable page, BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName, Sort sort) {
         List<Post> filtered = repository
-                .filteredPosts(priceFrom,priceTo,categoryName,authorName)
+                .filteredPosts(priceFrom,priceTo,categoryName,authorName,sort)
                 .stream()
                 .map(m->modelMapper.map(m,Post.class)).toList();
         return getPostsPageable(page,filtered);

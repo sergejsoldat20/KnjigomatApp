@@ -1,6 +1,7 @@
 package web.books.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import web.books.exceptions.NotFoundException;
@@ -104,6 +105,7 @@ public class PostController {
     @GetMapping("/filtered")
     public Page<Post> getAllFilteredPosts(
             Pageable page,
+            Sort sort,
             @RequestParam(required = false) BigDecimal priceFrom,
             @RequestParam(required = false) BigDecimal priceTo,
             @RequestParam(required = false) String categoryName,
@@ -113,11 +115,7 @@ public class PostController {
             String[] names = authorName.split("-");
             authorName = String.join(" ", names);
         }
-        System.out.println(priceFrom);
-        System.out.println(priceTo);
-        System.out.println(categoryName);
-        System.out.println(authorName);
-        return service.getFiltered(page,priceFrom,priceTo,categoryName,authorName);
+        return service.getFiltered(page,priceFrom,priceTo,categoryName,authorName,sort);
     }
     @GetMapping("/users/{id}/paginated")
     public Page<Post> getAllByUserIdPaginated(Pageable page,@PathVariable Integer id){
