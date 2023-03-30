@@ -42,8 +42,21 @@ export default function Navbar() {
             <a className="nav-link">Početna</a>
           </li>
           <li className="nav-item active">
-            <a className="nav-link" style={{ paddingLeft: "2rem" }} href="/">
-              Dodaj
+            <a
+              className="nav-link"
+              style={{ paddingLeft: "2rem" }}
+              href="/upload-post"
+            >
+              Dodaj objavu
+            </a>
+          </li>
+          <li className="nav-item active">
+            <a
+              className="nav-link"
+              style={{ paddingLeft: "2rem" }}
+              href="/chat"
+            >
+              Chat
             </a>
           </li>
           <li className="nav-item active">

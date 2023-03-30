@@ -12,6 +12,7 @@ import SinglePost from "./pages/SinglePost";
 import Profile from "./pages/Profile";
 import UploadPost from "./pages/UploadPost";
 import FullChat from "./components/FullChat";
+import UploadPhoto from "./pages/UploadPhoto";
 //      <Route exact path="/" element={<LogIn />} />
 
 function App() {
@@ -29,7 +30,9 @@ function App() {
           </Route>
           <Route exact path="/home" element={<Home />} />
           <Route exact path="/posts/:id" element={<SinglePost />} />
+          <Route exact path="/upload-photo/:id" element={<UploadPhoto />} />
           <Route exact path="/chat" element={<FullChat />} />
+          <Route exact path="/upload-post" element={<UploadPost />} />
         </Routes>
       </Router>
     </div>
