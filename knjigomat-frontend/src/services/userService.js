@@ -10,7 +10,11 @@ export const getCurrentUser = () => {
   return instance.get("/users/current-user");
 };
 
+export const getUserById = (id) => {
+  return instance.get(`/users/${id}`);
+};
 export default {
   insert,
   getCurrentUser,
+  getUserById,
 };

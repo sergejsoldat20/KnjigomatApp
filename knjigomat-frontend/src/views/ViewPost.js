@@ -117,7 +117,7 @@ const ViewPost = (props) => {
               gridTemplateColumns: "repeat(4,1fr)",
             }}
           >
-            <a href={`/user/${post.userId}`}>
+            <a href={`/users/${post.userId}`}>
               <img
                 src={getAvatar(post.userGender)}
                 alt="Not Found"
@@ -127,7 +127,7 @@ const ViewPost = (props) => {
               />
             </a>
             <Link
-              to={`/user/${post.userId}`}
+              to={`/users/${post.userId}`}
               style={{ textDecoration: "none" }}
             >
               {post.userUsername}

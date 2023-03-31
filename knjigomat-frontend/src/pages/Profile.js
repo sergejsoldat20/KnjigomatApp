@@ -1,78 +1,69 @@
+import { Box, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import userService from "../services/userService";
-import {
-  // MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  // MDBInput,
-} from "mdb-react-ui-kit";
+import { useParams } from "react-router-dom";
+import ViewUserInformation from "../views/ViewUserInformation";
+import postService from "../services/postService";
+import ViewMiniPost from "../views/ViewMiniPost";
+import { Button } from "antd";
 export default function Profile() {
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    gender: "",
-    email: "",
-    username: "",
-    phoneNumber: " ",
-  });
-
+  const { id } = useParams();
+  const userId = parseInt(id, 10);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [postsSize, setPostsSize] = useState(0);
+  const [userPosts, setUserPosts] = useState([]);
   useEffect(() => {
-    loadUser();
-    console.log(user + " asdads");
+    loadUserPosts();
+    console.log("useEffect(Profile)");
   }, []);
-
-  const loadUser = () => {
-    userService.getCurrentUser().then((result) => {
-      setUser(result.data);
+  const loadUserPosts = () => {
+    postService.getAllByUserIdPaginated(0, 12, userId).then((result) => {
+      setUserPosts(result.data.content);
+      setPostsSize(result.data.totalElements);
     });
   };
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    window.scrollTo(0, 0);
+  };
+  console.log("NESTO" + 103);
   return (
-    <MDBContainer className="my-2 gradient-form">
-      <MDBRow>
-        <MDBCol col="6" className="mb-5">
-          <div className="container">
-            <div className="rom">
-              <div className="col-md-10 offset-md-0 border rounder p-4 mt-1 shadow">
-                <h2 className="text-center m-4">INFORMACIJE O PROFILU:</h2>
-
-                <div className="card">
-                  <div className="card-header">
-                    <ul className="list-group list-group-flush">
-                      <li className="list-group-item">
-                        <b>Ime: </b>
-                        {user.firstName}
-                      </li>
-                      <li className="list-group-item">
-                        <b>Prezime: </b>
-                        {user.lastName}
-                      </li>
-                      <li className="list-group-item">
-                        <b>Korisnicko ime: </b>
-                        {user.username}
-                      </li>
-                      <li className="list-group-item">
-                        <b>Email: </b>
-                        {user.email}
-                      </li>
-                      <li className="list-group-item">
-                        <b>Pol: </b>
-                        {user.gender}
-                      </li>
-                      <li className="list-group-item">
-                        <b>Broj telefona: </b>
-                        {user.phoneNumber}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </MDBCol>
-
-        <MDBCol col="6" className="mb-5"></MDBCol>
-      </MDBRow>
-    </MDBContainer>
+    <div>
+      <Box style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}>
+        <ViewUserInformation id={userId} />
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+          }}
+        >
+          {userPosts.map((post) => (
+            <ViewMiniPost id={post.id} key={post.id} />
+          ))}
+          {Array(Math.max(0, 4 - userPosts.length))
+            .fill()
+            .map((_, i) => (
+              <div key={i} />
+            ))}
+        </div>
+      </Box>
+      <Grid
+        container
+        item
+        sx={{ justifyContent: "center", paddingLeft: "24%" }}
+      >
+        <Button
+          disabled={currentPage === 0}
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          Previous
+        </Button>
+        <Button
+          disabled={(currentPage + 1) * 12 >= postsSize}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          Next
+        </Button>
+      </Grid>
+    </div>
   );
 }

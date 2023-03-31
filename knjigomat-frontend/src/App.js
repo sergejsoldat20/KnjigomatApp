@@ -13,7 +13,6 @@ import Profile from "./pages/Profile";
 import UploadPost from "./pages/UploadPost";
 import FullChat from "./components/FullChat";
 import UploadPhoto from "./pages/UploadPhoto";
-//      <Route exact path="/" element={<LogIn />} />
 
 function App() {
   return (
@@ -24,7 +23,7 @@ function App() {
           <Route exact path="/" element={<LogIn />} />
           <Route exact path="/upload-post" element={<UploadPost />} />
           <Route exact path="/add-user" element={<AddUser />} />
-          <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/users/:id" element={<Profile />} />
           <Route element={<PrivateRoutes />}>
             {/* <Route exact path="/home" element={<Home />} /> */}
           </Route>
