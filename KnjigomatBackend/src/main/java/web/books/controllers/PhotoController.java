@@ -35,8 +35,10 @@ public class PhotoController {
         }
     }
 
+
     @PostMapping("/upload/{id}")
     public ResponseEntity<Photo> uploadPhoto(@RequestParam("file") MultipartFile file, @PathVariable Integer id) throws IOException {
+        System.out.println("ide neki upload");
        Photo photo = photoService.uploadPhoto(id, file);
        if(photo.getPhotoUrl() != null){
            return ResponseEntity.ok(photo);

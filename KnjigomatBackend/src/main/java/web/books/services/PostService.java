@@ -2,6 +2,7 @@ package web.books.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import web.books.base.CrudService;
 import web.books.models.dto.Post;
 
@@ -16,7 +17,7 @@ public interface PostService extends CrudService<Integer> {
     Page<Post> getAllFilteredByAuthorName(Pageable page, String authorName);
     Page<Post> getAllFilteredByCategoryName(Pageable page, String categoryName);
     Page<Post> getAllFilteredByPriceIsBetween(Pageable page, BigDecimal lowest, BigDecimal highest);
-    Page<Post> getFiltered(Pageable page, BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName);
+    Page<Post> getFiltered(Pageable page, BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName, Sort sort);
     Page<Post> searchByName(Pageable page, String query);
     List<String> getAllDistinctAuthors();
     List<String> getAllDistinctCategories();
