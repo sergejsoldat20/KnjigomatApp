@@ -136,4 +136,9 @@ public class PostController {
     public List<String> getAllDistinctCategories(){
         return service.getAllDistinctCategories();
     }
+
+    @GetMapping("/categories")
+    public List<Category> getAllCategories(){
+        return categoryService.getAll();
+    }
 }
