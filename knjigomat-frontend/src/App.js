@@ -16,8 +16,6 @@ import UploadPhoto from "./pages/UploadPhoto";
 import AllUsers from "./pages/AllUsers";
 import Reports from "./pages/Reports";
 
-
-
 function App() {
   return (
     <div className="App">
