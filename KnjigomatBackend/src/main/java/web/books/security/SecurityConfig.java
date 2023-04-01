@@ -52,7 +52,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST,"/photos/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
                 .requestMatchers(HttpMethod.GET,"/posts/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/posts/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
-
+                .requestMatchers(HttpMethod.GET,"users/all-basic-users/**").hasAnyAuthority(SecurityConsts.ADMIN)
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

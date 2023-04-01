@@ -39,7 +39,9 @@ export default function Navbar() {
       <div className="collapse navbar-collapse " id="navbarSupportedContent">
         <ul className="navbar-nav" style={{ paddingLeft: "3rem" }}>
           <li className="nav-item active">
-            <a className="nav-link">Početna</a>
+            <a className="nav-link" href="/home">
+              Početna
+            </a>
           </li>
           <li className="nav-item active">
             <a
@@ -68,27 +70,21 @@ export default function Navbar() {
               Profil
             </a>
           </li>
+          {localStorage.getItem("role") === "ADMIN" ? (
+            <li className="nav-item active">
+              <a
+                className="nav-link"
+                style={{ paddingLeft: "2rem" }}
+                href="/administration-users"
+              >
+                Administracija
+              </a>
+            </li>
+          ) : (
+            ""
+          )}
         </ul>
         <ul className="navbar-nav" style={{ paddingLeft: "15rem" }}>
-          <input
-            className="form-control"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            style={{
-              width: 400,
-              borderRadius: "8px",
-              height: 40,
-            }}
-          />
-
-          <button
-            className="btn btn-outline-success "
-            type="submit"
-            style={{ hight: 20 }}
-          >
-            Pretraga
-          </button>
           <li className="nav-item active" style={{ paddingLeft: "4rem" }}>
             <Link className="btn btn-outline-info" to={"/"}>
               Prijavi se
