@@ -13,8 +13,23 @@ export const getCurrentUser = () => {
 export const getUserById = (id) => {
   return instance.get(`/users/${id}`);
 };
+export const getAllUsers = () => {
+  return instance.get("/users");
+};
+
+export const makeAdmin = (id) => {
+  return instance.post(`/users/make-admin/${id}`);
+};
+
+export const deleteUser = (id) => {
+  return instance.delete(`/users/${id}`);
+};
+
 export default {
   insert,
   getCurrentUser,
   getUserById,
+  getAllUsers,
+  makeAdmin,
+  deleteUser,
 };
