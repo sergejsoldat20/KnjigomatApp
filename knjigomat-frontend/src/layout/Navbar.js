@@ -39,7 +39,9 @@ export default function Navbar() {
       <div className="collapse navbar-collapse " id="navbarSupportedContent">
         <ul className="navbar-nav" style={{ paddingLeft: "3rem" }}>
           <li className="nav-item active">
-            <a className="nav-link">Početna</a>
+            <a className="nav-link" href="/home">
+              Početna
+            </a>
           </li>
           <li className="nav-item active">
             <a
