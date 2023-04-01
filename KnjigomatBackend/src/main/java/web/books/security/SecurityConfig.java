@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/messages/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
+                .requestMatchers(HttpMethod.GET,"/users/**").permitAll()
                 .requestMatchers("/users/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
                 .requestMatchers(HttpMethod.GET,"/comments/**").permitAll()
                 .requestMatchers("/comments/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)

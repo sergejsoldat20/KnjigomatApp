@@ -7,10 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
 import web.books.exceptions.NotFoundException;
 import web.books.models.dto.User;
 import web.books.models.dto.UserResponse;
 import web.books.security.SecurityConsts;
+import web.books.base.CrudController;
+import web.books.models.requests.UserRequest;
+
 import web.books.services.UserService;
 
 import java.util.List;
@@ -30,7 +34,10 @@ public class UserController {
     public List<User> getAll(){
        return userService.getAllUsers();
     }
-
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Integer id){
+        return userService.getUserById(id);
+    }
     @GetMapping("/current-role")
     public String getCurrentRole() {
         return userService.getCurrentRole();

@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface PostService extends CrudService<Integer> {
     List<Post> getAllByUserId(Integer id);
+    Integer getUserIdByPostId(Integer id);
     List<Post> getAll();
     <T> Page<T> findAll(Pageable page, Class<T> resultDtoClass);
     Page<Post> getAllByUserIdPaginated(Pageable page, Integer id);

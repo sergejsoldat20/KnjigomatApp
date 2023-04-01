@@ -17,6 +17,8 @@ public interface PostEntityRepository extends JpaRepository<PostEntity, Integer>
     List<PostEntity> getAllByAuthorName(String authorName);
     List<PostEntity> getAllByPriceIsBetween(BigDecimal lowest,BigDecimal highest);
     List<PostEntity> getAllByCategoryName(String categoryName);
+    @Query("SELECT  p.user.id FROM PostEntity  p WHERE p.id = :id")
+    Integer getUserIdByPostId(Integer id);
     @Query("SELECT p FROM PostEntity p WHERE (:priceFrom IS NULL OR p.price >= :priceFrom) " +
             "AND (:priceTo IS NULL OR p.price <= :priceTo) " +
             "AND (:categoryName IS NULL OR p.category.name = :categoryName) " +

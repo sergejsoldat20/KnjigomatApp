@@ -1,31 +1,28 @@
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-// import Navbar from "react-bootstrap/Navbar";
-// import CheckIfUser from "../utils/CheckIfUser";
-
+import { useNavigate } from "react-router-dom";
+import CheckIfUser from "../utils/CheckIfUser";
+const { Search } = Input;
 export default function Navbar() {
   const navigate = useNavigate();
-
-  // const checkIfAuthorized = () => {
-  //   const token = localStorage.getItem("jwt");
-  //   if (token) return true;
-  //   else return false;
-  // };
-
   const logout = () => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("role");
+    localStorage.removeItem("id");
     navigate("/");
+  };
+  const login = () => {
+    navigate("/");
+  };
+  const onSearch = (value) => {
+    console.log(value);
   };
   return (
     <nav
       className="navbar navbar-expand-lg navbar-light bg-light  "
       style={{
         fontSize: 25,
-        // background: " #D1D1D1",
-        // margin: "15px",
-        // padding: "12px",
+        paddingRight: 30,
       }}
     >
       <a className="navbar-brand">
@@ -43,60 +40,68 @@ export default function Navbar() {
               Početna
             </a>
           </li>
-          <li className="nav-item active">
-            <a
-              className="nav-link"
-              style={{ paddingLeft: "2rem" }}
-              href="/upload-post"
-            >
-              Dodaj objavu
-            </a>
-          </li>
-          <li className="nav-item active">
-            <a
-              className="nav-link"
-              style={{ paddingLeft: "2rem" }}
-              href="/chat"
-            >
-              Chat
-            </a>
-          </li>
-          <li className="nav-item active">
-            <a
-              className="nav-link"
-              style={{ paddingLeft: "2rem" }}
-              href="/profile"
-            >
-              Profil
-            </a>
-          </li>
-          {localStorage.getItem("role") === "ADMIN" ? (
+          {CheckIfUser() && (
+            <li className="nav-item active" style={{ width: 225 }}>
+              <a
+                className="nav-link"
+                style={{ paddingLeft: "2rem" }}
+                href="/upload-post"
+              >
+                Dodaj objavu
+              </a>
+            </li>
+          )}
+          {CheckIfUser() && (
             <li className="nav-item active">
               <a
                 className="nav-link"
                 style={{ paddingLeft: "2rem" }}
-                href="/administration-users"
+                href="/chat"
               >
-                Administracija
+                Chat
               </a>
             </li>
-          ) : (
-            ""
+          )}
+          {CheckIfUser() && (
+            <li className="nav-item active">
+              <a
+                className="nav-link"
+                style={{ paddingLeft: "2rem" }}
+                href={`/users/${localStorage.getItem("id")}`}
+              >
+                Profil
+              </a>
+            </li>
           )}
         </ul>
-        <ul className="navbar-nav" style={{ paddingLeft: "15rem" }}>
-          <li className="nav-item active" style={{ paddingLeft: "4rem" }}>
-            <Link className="btn btn-outline-info" to={"/"}>
-              Prijavi se
-            </Link>
-          </li>
-          <li className="nav-item active" style={{ paddingLeft: "1rem" }}>
-            <Button className="btn btn-outline-danger mx-3" onClick={logout}>
-              Odjavi se
-            </Button>
-          </li>
-        </ul>
       </div>
+      <Search
+        placeholder="Pretraga"
+        allowClear
+        onSearch={onSearch}
+        size="large"
+        style={{
+          width: 500,
+          float: "right",
+        }}
+      />
+      <div style={{ width: 100 }}></div>
+      <Button
+        type="text"
+        style={{
+          float: "right",
+          fontSize: 20,
+          height: 50,
+          width: 120,
+          borderRadius: 30,
+        }}
+        onClick={() => {
+          CheckIfUser() ? logout() : login();
+        }}
+      >
+        {CheckIfUser() ? "Odjavi se" : "Prijavi se"}
+      </Button>
     </nav>
   );
 }
+
