@@ -38,7 +38,7 @@ export default function SinglePost() {
       defaultActiveKey="1"
       items={items}
       onChange={onChange}
-      style={{ paddingLeft: 30 }}
+      style={{ padding: 30 }}
       type="card"
       size="large"
     />

@@ -8,6 +8,7 @@ import web.books.models.dto.User;
 import web.books.models.dto.UserResponse;
 import web.books.models.entities.UserEntity;
 import web.books.repositories.UserEntityRepository;
+import web.books.security.SecurityConsts;
 import web.books.services.UserService;
 import web.books.base.*;
 import java.util.List;
@@ -26,12 +27,27 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
     @Override
     public List<User> getAllUsers(){
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return super.findAll(User.class).stream().filter(u -> !u.getUsername().equals(username)).collect(Collectors.toList());
+        return super
+                .findAll(User.class)
+                .stream()
+                .filter(u -> !u.getUsername().equals(username))
+                .filter(u -> !u.getIsDeleted())
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<User> getAll(){
         return super.findAll(User.class);
+    }
+
+    @Override
+    public List<User> getAllBasicUsers() {
+        return repository
+                .findAll()
+                .stream()
+                .filter(u -> u.getRole().equals(SecurityConsts.USER))
+                .map(u -> getModelMapper().map(u, User.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -60,6 +76,10 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
     @Override
     public User getUserByEmail(String email){
         return getModelMapper().map(repository.findUserEntityByEmail(email), User.class);
+    }
+    @Override
+    public  User getUserById(Integer id){
+        return getModelMapper().map(repository.getUserEntityById(id),User.class);
     }
 
     @Override

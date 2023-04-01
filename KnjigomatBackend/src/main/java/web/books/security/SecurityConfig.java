@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/messages/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
+                .requestMatchers(HttpMethod.GET,"/users/**").permitAll()
                 .requestMatchers("/users/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
                 .requestMatchers(HttpMethod.GET,"/comments/**").permitAll()
                 .requestMatchers("/comments/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
@@ -52,7 +53,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST,"/photos/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
                 .requestMatchers(HttpMethod.GET,"/posts/**").permitAll()
                 .requestMatchers(HttpMethod.POST,"/posts/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
-
+                .requestMatchers(HttpMethod.GET,"users/all-basic-users/**").hasAnyAuthority(SecurityConsts.ADMIN)
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

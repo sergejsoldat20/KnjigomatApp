@@ -37,6 +37,9 @@ public class UserEntity implements BaseEntity<Integer> {
     @Column(name = "role")
     private String role;
     @Basic
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+    @Basic
     @Column(name = "account_confirmed")
     private Boolean accountConfirmed;
     @Basic

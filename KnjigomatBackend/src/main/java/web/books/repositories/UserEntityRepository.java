@@ -17,10 +17,9 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Integer>
     @Query("select u.id from UserEntity u where u.username = :username")
     Integer findIdByUsername(String username);
     Boolean existsByUsername(String username);
-
     UserEntity findUserEntityByEmail(String email);
     String findUsernameById(Integer id);
-
+    UserEntity getUserEntityById(Integer id);
     @Query("select distinct u from UserEntity u where u.id in (select distinct m.receiverId from MessageEntity m where m.senderId = :userId)")
     List<UserEntity> findChatPartnersReceived(Integer userId);
 

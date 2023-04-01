@@ -141,4 +141,8 @@ public class PostController {
     public List<Category> getAllCategories(){
         return categoryService.getAll();
     }
+    @GetMapping("/{id}/user-id")
+    public Integer getUserIdByPostId(@PathVariable Integer id){
+        return service.getUserIdByPostId(id);
+    }
 }

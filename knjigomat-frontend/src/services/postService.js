@@ -87,6 +87,9 @@ export const getAllDistinctAuthors = () => {
 export const getAllDistinctCategories = () => {
   return getInstance.get(`/posts/all-categories`);
 };
+export const getUserIdByPostId = (id) => {
+  return getInstance.get(`/posts/${id}/user-id`);
+};
 
 export default {
   getPostById,
@@ -106,4 +109,5 @@ export default {
   getAllDistinctAuthors,
   getAllDistinctCategories,
   getFiltered,
+  getUserIdByPostId,
 };

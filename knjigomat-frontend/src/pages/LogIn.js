@@ -4,13 +4,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
-import {
-  // MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  // MDBInput,
-} from "mdb-react-ui-kit";
+import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import "../css/LogIn.css";
 
 export default function LogIn() {
@@ -32,7 +26,12 @@ export default function LogIn() {
         `http://localhost:9000/users/current-role`,
         config
       );
+      const user = await axios.get(
+        `http://localhost:9000/users/current-user`,
+        config
+      );
       localStorage.setItem("role", role.data);
+      localStorage.setItem("id", user.data.id);
       message.success("Uspjesno ste se ulogovali");
       navigate("/home");
     } catch (error) {
@@ -107,23 +106,6 @@ export default function LogIn() {
               </Form.Item>
             </Form>
             <div className="text-center pt-1 mb-5 pb-1">
-              {
-                // <MDBBtn
-                //   className="mb-4 w-100 gradient-custom-2"
-                //   onClick={onFinish}
-                //   type="submit"
-                // >
-                //   Prijavi se
-                // </MDBBtn>
-              }
-              {/* <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button md-4"
-                onClick={onFinish}
-              >
-                Prijavi se
-              </Button> */}
               <Link
                 type="button"
                 className=" mb-4 w-100 btn btn-outline-primary"

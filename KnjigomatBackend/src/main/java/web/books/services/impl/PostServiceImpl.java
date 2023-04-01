@@ -111,6 +111,9 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
         return repository.getAllDistinctCategories();
     }
 
+    public Integer getUserIdByPostId(Integer id) {
+        return repository.getUserIdByPostId(id);
+    }
     private Page<Post> getPostsPageable(Pageable page, List<Post> postList) {
         int pageSize = page.getPageSize();
         int start = page.getPageNumber() * pageSize;
