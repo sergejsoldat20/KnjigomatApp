@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 import postService from "../services/postService";
 import { PropTypes } from "prop-types";
 import { Box, Grid } from "@mui/material";
-import { Card, Image, Divider, Col, Row } from "antd";
+import { Card, Image, Divider, Col, Row, Button, Modal } from "antd";
 import { Link, useParams } from "react-router-dom";
 import getAvatar from "../utils/getAvatar";
+import SendMessageComponent from "../components/SendMessageComponent";
+import PostComment from "../components/PostComment";
 const { Meta } = Card;
 const ViewPost = (props) => {
   const [post, setPost] = useState({
@@ -50,6 +52,20 @@ const ViewPost = (props) => {
       setPhotos(result.data);
     });
   };
+  const [isModalOpen, setIsModalOpen] = useState(0);
+  const showModal = (number) => {
+    setIsModalOpen(number);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(0);
+  };
+  const sendButton = {
+    height: 65,
+    width: 150,
+    borderRadius: 50,
+    borderColor: "#4182fc",
+    color: "#4182fc",
+  };
   return (
     <Row>
       <Col span={12}>
@@ -74,34 +90,73 @@ const ViewPost = (props) => {
         </Card>
       </Col>
       <Col span={12}>
-        <Card
-          style={{
-            textAlign: "left",
-            fontSize: 20,
-            borderTop: 0,
-            borderBottom: 0,
-            minHeight: 350,
-          }}
-        >
-          <p>
-            <b>Autor :</b> {post.authorName}
-          </p>
-          <p>
-            <b>Kategorija :</b> {post.categoryName}
-          </p>
-          <p>
-            <b>Stanje :</b> {post.state}
-          </p>
-          <p>
-            <b>Datum :</b> {post.createdTime.split("T")[0]}
-          </p>
-          <p>
-            <b>Objavio :</b> {post.userUsername}
-          </p>
-          <p>
-            <b>Opis :</b> {post.description}
-          </p>
-        </Card>
+        <Box style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}>
+          <Card
+            style={{
+              textAlign: "left",
+              fontSize: 20,
+              borderTop: 0,
+              borderBottom: 0,
+              minHeight: 350,
+            }}
+          >
+            <p>
+              <b>Autor :</b> {post.authorName}
+            </p>
+            <p>
+              <b>Kategorija :</b> {post.categoryName}
+            </p>
+            <p>
+              <b>Stanje :</b> {post.state}
+            </p>
+            <p>
+              <b>Datum :</b> {post.createdTime.split("T")[0]}
+            </p>
+            <p>
+              <b>Objavio :</b> {post.userUsername}
+            </p>
+            <p>
+              <b>Opis :</b> {post.description}
+            </p>
+          </Card>
+          <Box
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(1,1fr)",
+              justifyContent: "space-around",
+              alignItems: "space-around",
+              paddingLeft: 120,
+              paddingTop: "20%",
+            }}
+          >
+            <Button style={sendButton} onClick={() => showModal(1)}>
+              Pitanje
+            </Button>
+            <Modal
+              title="Javno pitanje"
+              open={isModalOpen === 1}
+              footer={null}
+              closable={false}
+            >
+              <PostComment postId={post.id} closeModal={handleCancel} />
+            </Modal>
+            <Button style={sendButton} onClick={() => showModal(2)}>
+              Poruka
+            </Button>
+            <Modal
+              title="Privatna poruka"
+              open={isModalOpen === 2}
+              footer={null}
+              closable={false}
+            >
+              <SendMessageComponent
+                receiverId={post.userId}
+                messageType={"post"}
+                closeModal={handleCancel}
+              />
+            </Modal>
+          </Box>
+        </Box>
         <Divider style={{ fontSize: 20 }}>Profil</Divider>
         <Card
           style={{

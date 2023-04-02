@@ -56,7 +56,7 @@ const Chat = (props) => {
           )}
         />
       </div>
-      <SendMessage receiverId={props.receiverId} />
+      <SendMessage receiverId={props.receiverId} messageType={"chat"} />
     </div>
   );
 };

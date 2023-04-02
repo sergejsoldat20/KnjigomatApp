@@ -90,6 +90,9 @@ export const getAllDistinctCategories = () => {
 export const getUserIdByPostId = (id) => {
   return getInstance.get(`/posts/${id}/user-id`);
 };
+export const postCommentByPostId = (id, text) => {
+  return instance.post(`/comments/posts/${id}`, text);
+};
 
 export default {
   getPostById,
@@ -110,4 +113,5 @@ export default {
   getAllDistinctCategories,
   getFiltered,
   getUserIdByPostId,
+  postCommentByPostId,
 };
