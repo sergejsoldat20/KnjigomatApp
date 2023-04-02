@@ -43,6 +43,7 @@ export default function Navbar() {
           </li>
           {CheckIfAuthorized() && (
             <li className="nav-item active" style={{ width: 100 }}>
+
               <a
                 className="nav-link"
                 style={{ paddingLeft: "2rem" }}
