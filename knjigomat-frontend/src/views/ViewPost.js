@@ -6,6 +6,7 @@ import { Box, Grid } from "@mui/material";
 import { Card, Image, Divider, Col, Row, Button, Modal } from "antd";
 import { Link, useParams } from "react-router-dom";
 import getAvatar from "../utils/getAvatar";
+import "../static/Administration.css";
 import SendMessageComponent from "../components/SendMessageComponent";
 import PostComment from "../components/PostComment";
 const { Meta } = Card;

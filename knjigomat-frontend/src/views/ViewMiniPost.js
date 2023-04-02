@@ -39,7 +39,19 @@ const ViewMiniPost = (props) => {
   };
   return (
     <a href={`/posts/${props.id}`} style={{ textDecoration: "none" }}>
-      <Card style={{ width: 280 }}>
+      <Card
+        style={{
+          width: 280,
+          boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.0)",
+          transition: "box-shadow 0.3s ease-in-out",
+        }}
+        onMouseOver={(e) =>
+          (e.currentTarget.style.boxShadow = "0px 5px 10px rgba(0, 0, 0, 0.3)")
+        }
+        onMouseOut={(e) =>
+          (e.currentTarget.style.boxShadow = "0px 1px 5px rgba(0, 0, 0, 0.0)")
+        }
+      >
         <Image
           style={{ borderRadius: 10 }}
           alt="example"
@@ -47,7 +59,6 @@ const ViewMiniPost = (props) => {
           height={200}
           src={firstPhoto.photoUrl}
         />
-
         <Meta
           title={post.name}
           description={<b style={{ color: "#595E60" }}>{`${post.price} KM`}</b>}
