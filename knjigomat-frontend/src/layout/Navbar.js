@@ -2,6 +2,8 @@ import { Button, Input } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CheckIfAuthorized from "../utils/CheckIfAuthorized";
+import CheckIfAdmin from "../utils/CheckIfAdmin";
+import CheckIfAuthorized from "../utils/CheckIfAuthorized";
 const { Search } = Input;
 export default function Navbar() {
   const navigate = useNavigate();
@@ -40,7 +42,7 @@ export default function Navbar() {
               Početna
             </a>
           </li>
-          {CheckIfAuthorized() && (
+          {CheckIfUser() && (
             <li className="nav-item active" style={{ width: 225 }}>
               <a
                 className="nav-link"
@@ -51,7 +53,7 @@ export default function Navbar() {
               </a>
             </li>
           )}
-          {CheckIfAuthorized() && (
+          {CheckIfUser() && (
             <li className="nav-item active">
               <a
                 className="nav-link"
@@ -62,7 +64,7 @@ export default function Navbar() {
               </a>
             </li>
           )}
-          {CheckIfAuthorized() && (
+          {CheckIfUser() && (
             <li className="nav-item active">
               <a
                 className="nav-link"
@@ -96,11 +98,12 @@ export default function Navbar() {
           borderRadius: 30,
         }}
         onClick={() => {
-          CheckIfAuthorized() ? logout() : login();
+          CheckIfUser() ? logout() : login();
         }}
       >
-        {CheckIfAuthorized() ? "Odjavi se" : "Prijavi se"}
+        {CheckIfUser() ? "Odjavi se" : "Prijavi se"}
       </Button>
     </nav>
   );
 }
+

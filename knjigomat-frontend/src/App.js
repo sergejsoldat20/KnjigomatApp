@@ -15,7 +15,7 @@ import FullChat from "./components/FullChat";
 import UploadPhoto from "./pages/UploadPhoto";
 import AllUsers from "./pages/AllUsers";
 import Reports from "./pages/Reports";
-//      <Route exact path="/" element={<LogIn />} />
+import Administration from "./pages/Administration";
 
 function App() {
   return (
@@ -37,6 +37,7 @@ function App() {
           <Route exact path="/upload-post" element={<UploadPost />} />
           <Route exact path="/administration-users" element={<AllUsers />} />
           <Route exact path="/administration-reports" element={<Reports />} />
+          <Route exact path="/administration" element={<Administration />} />
         </Routes>
       </Router>
     </div>

@@ -6,6 +6,7 @@ import { Box, Grid } from "@mui/material";
 import { Card, Image, Divider, Col, Row } from "antd";
 import { Link, useParams } from "react-router-dom";
 import getAvatar from "../utils/getAvatar";
+import "../static/Administration.css";
 const { Meta } = Card;
 const ViewPost = (props) => {
   const [post, setPost] = useState({

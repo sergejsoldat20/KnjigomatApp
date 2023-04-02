@@ -1,0 +1,53 @@
+#administrationContainer .wrapper {
+  width: 100%;
+  padding: 40%, 20%;
+}
+
+#administrationContainer .cardsWrapper {
+ 
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-grow: 3;
+  gap: 2%;
+  row-gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+#administrationContainer .homeCard {
+  width: 30% !important;
+  margin: 0 1%;
+}
+
+#administrationContainer .ant-avatar {
+  width: 100px !important;
+  height: 100px !important;
+  border-radius: 0% !important;
+}
+
+#administrationContainer .ant-card-meta-title {
+  max-width: 300px !important;
+  overflow-wrap: break-word !important;
+}
+
+#administrationContainer .ant-card-meta {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  row-gap: 20px !important;
+}
+
+@media only screen and (max-width: 1200px) {
+  #administrationContainer .homeCard {
+    width: 45% !important;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  #administrationContainer .homeCard {
+    width: 100% !important;
+  }
+}
