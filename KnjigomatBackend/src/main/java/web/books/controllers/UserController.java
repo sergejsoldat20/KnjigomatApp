@@ -7,6 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import web.books.exceptions.NotFoundException;
+import web.books.models.dto.User;
+import web.books.models.dto.UserResponse;
 import web.books.exceptions.NotFoundException;
 import org.springframework.web.bind.annotation.*;
 import web.books.base.CrudController;
@@ -14,6 +18,9 @@ import web.books.models.dto.User;
 import web.books.models.dto.UserResponse;
 import web.books.models.requests.UserRequest;
 import web.books.security.SecurityConsts;
+import web.books.base.CrudController;
+import web.books.models.requests.UserRequest;
+
 import web.books.services.UserService;
 
 import java.util.List;
@@ -47,6 +54,10 @@ public class UserController {
         return new ResponseEntity<>(currentUser, HttpStatus.OK);
     }
 
+    @GetMapping("/all-basic-users")
+    public List<User> getAllUsers(){
+        return userService.getAllBasicUsers();
+    }
 
     @GetMapping("/chat-users")
     public ResponseEntity<List<User>> getChatUsers() {
