@@ -1,6 +1,7 @@
 import { Button, Input } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import CheckIfAdmin from "../utils/CheckIfAdmin";
 import CheckIfAuthorized from "../utils/CheckIfAuthorized";
 const { Search } = Input;
 export default function Navbar() {
@@ -41,13 +42,14 @@ export default function Navbar() {
             </a>
           </li>
           {CheckIfAuthorized() && (
-            <li className="nav-item active" style={{ width: 225 }}>
+            <li className="nav-item active" style={{ width: 100 }}>
+
               <a
                 className="nav-link"
                 style={{ paddingLeft: "2rem" }}
                 href="/upload-post"
               >
-                Dodaj objavu
+                Objavi
               </a>
             </li>
           )}
@@ -70,6 +72,17 @@ export default function Navbar() {
                 href={`/users/${localStorage.getItem("id")}`}
               >
                 Profil
+              </a>
+            </li>
+          )}
+          {CheckIfAdmin() && (
+            <li className="nav-item active">
+              <a
+                className="nav-link"
+                style={{ paddingLeft: "2rem" }}
+                href={`/administration`}
+              >
+                Administracija
               </a>
             </li>
           )}
