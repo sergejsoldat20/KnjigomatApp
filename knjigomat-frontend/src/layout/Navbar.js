@@ -35,17 +35,20 @@ export default function Navbar() {
         />
       </a>
       <div className="collapse navbar-collapse " id="navbarSupportedContent">
-        <ul className="navbar-nav" style={{ paddingLeft: "3rem" }}>
+        <ul
+          className="navbar-nav"
+          style={{ paddingLeft: "3rem", paddingRight: "1rem" }}
+        >
           <li className="nav-item active">
             <a className="nav-link" href="/home">
               Početna
             </a>
           </li>
           {CheckIfAuthorized() && (
-            <li className="nav-item active" style={{ width: 100 }}>
+            <li className="nav-item active">
               <a
                 className="nav-link"
-                style={{ paddingLeft: "2rem" }}
+                style={{ paddingInline: "1rem" }}
                 href="/upload-post"
               >
                 Objavi
@@ -56,7 +59,7 @@ export default function Navbar() {
             <li className="nav-item active">
               <a
                 className="nav-link"
-                style={{ paddingLeft: "2rem" }}
+                style={{ paddingInline: "1rem" }}
                 href="/chat"
               >
                 Chat
@@ -67,7 +70,7 @@ export default function Navbar() {
             <li className="nav-item active">
               <a
                 className="nav-link"
-                style={{ paddingLeft: "2rem" }}
+                style={{ paddingInline: "1rem" }}
                 href={`/users/${localStorage.getItem("id")}`}
               >
                 Profil
@@ -78,7 +81,7 @@ export default function Navbar() {
             <li className="nav-item active">
               <a
                 className="nav-link"
-                style={{ paddingLeft: "2rem" }}
+                style={{ paddingInline: "1rem" }}
                 href={"/administration"}
               >
                 Administracija
@@ -97,7 +100,7 @@ export default function Navbar() {
           float: "right",
         }}
       />
-      <div style={{ width: 100 }}></div>
+      <div style={{ width: 60 }}></div>
       <Button
         type="text"
         style={{

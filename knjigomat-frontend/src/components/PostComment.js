@@ -23,7 +23,7 @@ export default function PostComment(props) {
         onChange={(e) => setComment(e.target.value)}
       />
       <Row style={{ alignItems: "end", paddingTop: 20 }}>
-        <div style={{ width: 313 }}></div>
+        <div style={{ width: 338 }}></div>
         <Button onClick={props.closeModal}>Otkaži</Button>
         <div style={{ width: 8 }}></div>
         <Button

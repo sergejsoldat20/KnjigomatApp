@@ -9,6 +9,7 @@ import getAvatar from "../utils/getAvatar";
 import "../static/Administration.css";
 import SendMessageComponent from "../components/SendMessageComponent";
 import PostComment from "../components/PostComment";
+import CheckIfAuthorized from "../utils/CheckIfAuthorized";
 const { Meta } = Card;
 const ViewPost = (props) => {
   const [post, setPost] = useState({
@@ -120,43 +121,45 @@ const ViewPost = (props) => {
               <b>Opis :</b> {post.description}
             </p>
           </Card>
-          <Box
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(1,1fr)",
-              justifyContent: "space-around",
-              alignItems: "space-around",
-              paddingLeft: 120,
-              paddingTop: "20%",
-            }}
-          >
-            <Button style={sendButton} onClick={() => showModal(1)}>
-              Pitanje
-            </Button>
-            <Modal
-              title="Javno pitanje"
-              open={isModalOpen === 1}
-              footer={null}
-              closable={false}
+          {CheckIfAuthorized() && (
+            <Box
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(1,1fr)",
+                justifyContent: "space-around",
+                alignItems: "space-around",
+                paddingLeft: 120,
+                paddingTop: "20%",
+              }}
             >
-              <PostComment postId={post.id} closeModal={handleCancel} />
-            </Modal>
-            <Button style={sendButton} onClick={() => showModal(2)}>
-              Poruka
-            </Button>
-            <Modal
-              title="Privatna poruka"
-              open={isModalOpen === 2}
-              footer={null}
-              closable={false}
-            >
-              <SendMessageComponent
-                receiverId={post.userId}
-                messageType={"post"}
-                closeModal={handleCancel}
-              />
-            </Modal>
-          </Box>
+              <Button style={sendButton} onClick={() => showModal(1)}>
+                Pitanje
+              </Button>
+              <Modal
+                title="Javno pitanje"
+                open={isModalOpen === 1}
+                footer={null}
+                closable={false}
+              >
+                <PostComment postId={post.id} closeModal={handleCancel} />
+              </Modal>
+              <Button style={sendButton} onClick={() => showModal(2)}>
+                Poruka
+              </Button>
+              <Modal
+                title="Privatna poruka"
+                open={isModalOpen === 2}
+                footer={null}
+                closable={false}
+              >
+                <SendMessageComponent
+                  receiverId={post.userId}
+                  messageType={"post"}
+                  closeModal={handleCancel}
+                />
+              </Modal>
+            </Box>
+          )}
         </Box>
         <Divider style={{ fontSize: 20 }}>Profil</Divider>
         <Card

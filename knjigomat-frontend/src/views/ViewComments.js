@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import postService from "../services/postService";
 import { PropTypes } from "prop-types";
-import { Row, List } from "antd";
+import { Row, List, Button } from "antd";
 import ViewSingleComment from "./ViewSingleComment";
+import { Box } from "@mui/material";
 const ViewComments = (props) => {
   const [comments, setComments] = useState([]);
   const [ownerId, setOwnerId] = useState(0);
@@ -34,36 +35,43 @@ const ViewComments = (props) => {
     };
   });
   return (
-    <Row
-      style={{
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <List
-        itemLayout="horizontal"
-        dataSource={data}
-        style={{ width: 1000 }}
-        renderItem={(item, index) => (
-          <List.Item
-            style={{
-              flex: "right",
-              flexDirection: "row-reverse",
-              backgroundColor: ownerId === item.userId ? "#cddbfa" : "#e8eefa",
-              borderRadius: 20,
-            }}
-          >
-            <ViewSingleComment
-              userId={item.userId}
-              username={item.username}
-              userGender={item.gender}
-              text={item.text}
-              side={getSide(item.userId)}
-            />
-          </List.Item>
-        )}
-      />
-    </Row>
+    <Box>
+      <Row
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          paddingBottom: 20,
+        }}
+      >
+        <List
+          itemLayout="horizontal"
+          dataSource={data}
+          style={{ width: 1000 }}
+          renderItem={(item, index) => (
+            <List.Item
+              style={{
+                flex: "right",
+                flexDirection: "row-reverse",
+                backgroundColor:
+                  ownerId === item.userId ? "#cddbfa" : "#e8eefa",
+                borderRadius: 20,
+              }}
+            >
+              <ViewSingleComment
+                userId={item.userId}
+                username={item.username}
+                userGender={item.gender}
+                text={item.text}
+                side={getSide(item.userId)}
+              />
+            </List.Item>
+          )}
+        />
+      </Row>
+      <Button type="primary" onClick={loadComments}>
+        Osvježi
+      </Button>
+    </Box>
   );
 };
 ViewComments.propTypes = {
