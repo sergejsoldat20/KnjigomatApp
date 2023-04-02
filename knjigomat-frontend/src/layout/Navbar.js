@@ -79,7 +79,7 @@ export default function Navbar() {
               <a
                 className="nav-link"
                 style={{ paddingLeft: "2rem" }}
-                href={`/administration-users`}
+                href={`/administration`}
               >
                 Administracija
               </a>
