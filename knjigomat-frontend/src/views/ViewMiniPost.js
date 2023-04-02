@@ -42,14 +42,14 @@ const ViewMiniPost = (props) => {
       <Card
         style={{
           width: 280,
-          boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.2)",
+          boxShadow: "0px 1px 5px rgba(0, 0, 0, 0.0)",
           transition: "box-shadow 0.3s ease-in-out",
         }}
         onMouseOver={(e) =>
           (e.currentTarget.style.boxShadow = "0px 5px 10px rgba(0, 0, 0, 0.3)")
         }
         onMouseOut={(e) =>
-          (e.currentTarget.style.boxShadow = "0px 1px 5px rgba(0, 0, 0, 0.2)")
+          (e.currentTarget.style.boxShadow = "0px 1px 5px rgba(0, 0, 0, 0.0)")
         }
       >
         <Image
