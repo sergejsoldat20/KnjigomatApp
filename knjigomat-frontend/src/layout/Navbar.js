@@ -1,7 +1,6 @@
 import { Button, Input } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import CheckIfAuthorized from "../utils/CheckIfAuthorized";
 import CheckIfAdmin from "../utils/CheckIfAdmin";
 import CheckIfAuthorized from "../utils/CheckIfAuthorized";
 const { Search } = Input;
@@ -42,18 +41,18 @@ export default function Navbar() {
               Početna
             </a>
           </li>
-          {CheckIfUser() && (
-            <li className="nav-item active" style={{ width: 225 }}>
+          {CheckIfAuthorized() && (
+            <li className="nav-item active" style={{ width: 100 }}>
               <a
                 className="nav-link"
                 style={{ paddingLeft: "2rem" }}
                 href="/upload-post"
               >
-                Dodaj objavu
+                Objavi
               </a>
             </li>
           )}
-          {CheckIfUser() && (
+          {CheckIfAuthorized() && (
             <li className="nav-item active">
               <a
                 className="nav-link"
@@ -64,7 +63,7 @@ export default function Navbar() {
               </a>
             </li>
           )}
-          {CheckIfUser() && (
+          {CheckIfAuthorized() && (
             <li className="nav-item active">
               <a
                 className="nav-link"
@@ -72,6 +71,17 @@ export default function Navbar() {
                 href={`/users/${localStorage.getItem("id")}`}
               >
                 Profil
+              </a>
+            </li>
+          )}
+          {CheckIfAdmin() && (
+            <li className="nav-item active">
+              <a
+                className="nav-link"
+                style={{ paddingLeft: "2rem" }}
+                href={"/administration"}
+              >
+                Administracija
               </a>
             </li>
           )}
@@ -98,12 +108,11 @@ export default function Navbar() {
           borderRadius: 30,
         }}
         onClick={() => {
-          CheckIfUser() ? logout() : login();
+          CheckIfAuthorized() ? logout() : login();
         }}
       >
-        {CheckIfUser() ? "Odjavi se" : "Prijavi se"}
+        {CheckIfAuthorized() ? "Odjavi se" : "Prijavi se"}
       </Button>
     </nav>
   );
 }
-
