@@ -23,8 +23,9 @@ public interface PostEntityRepository extends JpaRepository<PostEntity, Integer>
             "AND (:priceTo IS NULL OR p.price <= :priceTo) " +
             "AND (:categoryName IS NULL OR p.category.name = :categoryName) " +
             "AND (:authorName IS NULL OR p.authorName = :authorName) " +
+            "AND (:search IS NULL OR p.name LIKE %:search%) " +
             "ORDER BY :#{#sort}")
-    List<PostEntity> filteredPosts(BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName, Sort sort);
+    List<PostEntity> filteredPosts(BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName, Sort sort,String search);
     @Query("SELECT DISTINCT p.authorName FROM PostEntity p ORDER BY p.authorName")
     List<String> getAllDistinctAuthors();
 

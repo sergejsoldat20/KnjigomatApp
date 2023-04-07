@@ -48,7 +48,7 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
         List<Post> searchedPosts = repository
                 .findAll()
                 .stream()
-                .filter(x -> SearchAlgorithm.isSimilarToAnyToken(x.getName(), query, 3))
+                .filter(x -> SearchAlgorithm.isSimilarToAnyToken(x.getName(), query, 1))
                 .map(x -> modelMapper.map(x, Post.class))
                 .collect(Collectors.toList());
         return new PageImpl<>(searchedPosts, page, searchedPosts.size());
@@ -93,9 +93,9 @@ public class PostServiceImpl extends CrudJpaService<PostEntity, Integer> impleme
     }
 
     @Override
-    public Page<Post> getFiltered(Pageable page, BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName, Sort sort) {
+    public Page<Post> getFiltered(Pageable page, BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName, Sort sort,String search) {
         List<Post> filtered = repository
-                .filteredPosts(priceFrom,priceTo,categoryName,authorName,sort)
+                .filteredPosts(priceFrom,priceTo,categoryName,authorName,sort,search)
                 .stream()
                 .map(m->modelMapper.map(m,Post.class)).toList();
         return getPostsPageable(page,filtered);

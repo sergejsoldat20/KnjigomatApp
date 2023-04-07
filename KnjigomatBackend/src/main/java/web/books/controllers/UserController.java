@@ -48,6 +48,10 @@ public class UserController {
     public String getCurrentRole() {
         return userService.getCurrentRole();
     }
+    @GetMapping("/current-id")
+    public Integer getCurrentId() {
+        return userService.getCurrentId();
+    }
     @GetMapping("/current-user")
     public ResponseEntity<UserResponse> getCurrentUser() {
         UserResponse currentUser = userService.getCurrentUser();
@@ -79,10 +83,7 @@ public class UserController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> delete(@PathVariable Integer id) throws NotFoundException {
-        User user = userService.findById(id, User.class);
-        user.setIsDeleted(true);
-        userService.update(id, user, User.class);
-        return ResponseEntity.ok(userService.update(id, user, User.class));
+    public void delete(@PathVariable Integer id) throws NotFoundException {
+        userService.delete(id);
     }
 }

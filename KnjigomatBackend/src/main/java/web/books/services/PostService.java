@@ -18,8 +18,8 @@ public interface PostService extends CrudService<Integer> {
     Page<Post> getAllFilteredByAuthorName(Pageable page, String authorName);
     Page<Post> getAllFilteredByCategoryName(Pageable page, String categoryName);
     Page<Post> getAllFilteredByPriceIsBetween(Pageable page, BigDecimal lowest, BigDecimal highest);
-    Page<Post> getFiltered(Pageable page, BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName, Sort sort);
-    Page<Post> searchByName(Pageable page, String query);
+    Page<Post> getFiltered(Pageable page, BigDecimal priceFrom, BigDecimal priceTo, String categoryName, String authorName, Sort sort, String search);
+    Page<Post> searchByName(Pageable page, String search);
     List<String> getAllDistinctAuthors();
     List<String> getAllDistinctCategories();
 }

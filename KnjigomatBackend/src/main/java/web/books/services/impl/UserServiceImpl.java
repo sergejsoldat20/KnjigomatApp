@@ -31,7 +31,6 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
                 .findAll(User.class)
                 .stream()
                 .filter(u -> !u.getUsername().equals(username))
-                .filter(u -> !u.getIsDeleted())
                 .collect(Collectors.toList());
     }
 

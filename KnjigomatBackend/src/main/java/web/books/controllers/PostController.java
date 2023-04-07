@@ -57,8 +57,8 @@ public class PostController {
     }
 
     @GetMapping("/search")
-    public Page<Post> search(Pageable page, @RequestBody SearchRequest request){
-        return service.searchByName(page, request.getQuery());
+    public Page<Post> search(Pageable page, @RequestParam String search){
+        return service.searchByName(page, search);
     }
 
     @DeleteMapping("/{id}")
@@ -113,13 +113,14 @@ public class PostController {
             @RequestParam(required = false) BigDecimal priceFrom,
             @RequestParam(required = false) BigDecimal priceTo,
             @RequestParam(required = false) String categoryName,
-            @RequestParam(required = false) String authorName
+            @RequestParam(required = false) String authorName,
+            @RequestParam(required = false) String search
     ) {
         if(authorName!=null) {
             String[] names = authorName.split("-");
             authorName = String.join(" ", names);
         }
-        return service.getFiltered(page,priceFrom,priceTo,categoryName,authorName,sort);
+        return service.getFiltered(page,priceFrom,priceTo,categoryName,authorName,sort,search);
     }
 
     @GetMapping("/users/{id}/paginated")

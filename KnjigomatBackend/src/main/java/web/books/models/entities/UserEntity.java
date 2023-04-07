@@ -3,6 +3,9 @@ package web.books.models.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import web.books.base.BaseEntity;
 import java.sql.Timestamp;
 import java.time.OffsetDateTime;
@@ -11,6 +14,9 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "user")
+@SQLDelete(sql = "UPDATE user SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
+@EntityListeners(AuditingEntityListener.class)
 public class UserEntity implements BaseEntity<Integer> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id@Column(name = "id")
@@ -37,8 +43,8 @@ public class UserEntity implements BaseEntity<Integer> {
     @Column(name = "role")
     private String role;
     @Basic
-    @Column(name = "is_deleted")
-    private Boolean isDeleted;
+    @Column(name = "deleted")
+    private Boolean deleted=Boolean.FALSE;
     @Basic
     @Column(name = "account_confirmed")
     private Boolean accountConfirmed;
