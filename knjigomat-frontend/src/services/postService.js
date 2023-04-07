@@ -43,7 +43,8 @@ export const getFiltered = (
   priceTo,
   categoryName,
   authorName,
-  selectedSort
+  selectedSort,
+  search
 ) => {
   let queryString = `/posts/filtered?page=${page}&size=${size}`;
   if (selectedSort) {
@@ -60,6 +61,9 @@ export const getFiltered = (
   }
   if (authorName) {
     queryString += `&authorName=${authorName}`;
+  }
+  if (search) {
+    queryString += `&search=${search}`;
   }
   return getInstance.get(queryString);
 };

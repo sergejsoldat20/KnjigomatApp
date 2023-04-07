@@ -3,7 +3,7 @@ import { Button, Form, Input, message } from "antd";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-
+import authService from "../services/authService";
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import "../css/LogIn.css";
 
@@ -26,12 +26,7 @@ export default function LogIn() {
         `http://localhost:9000/users/current-role`,
         config
       );
-      const user = await axios.get(
-        `http://localhost:9000/users/current-user`,
-        config
-      );
-      localStorage.setItem("role", role.data);
-      localStorage.setItem("id", user.data.id);
+      localStorage.setItem("role", authService.setRole(role.data));
       message.success("Uspjesno ste se ulogovali");
       navigate("/home");
     } catch (error) {

@@ -9,7 +9,12 @@ export const insert = (user) => {
 export const getCurrentUser = () => {
   return instance.get("/users/current-user");
 };
-
+export const getCurrentUserRole = () => {
+  return instance.get("/users/current-role");
+};
+export const getCurrentUserId = () => {
+  return instance.get("/users/current-id");
+};
 export const getUserById = (id) => {
   return instance.get(`/users/${id}`);
 };
@@ -28,6 +33,8 @@ export const deleteUser = (id) => {
 export default {
   insert,
   getCurrentUser,
+  getCurrentUserRole,
+  getCurrentUserId,
   getUserById,
   getAllUsers,
   makeAdmin,

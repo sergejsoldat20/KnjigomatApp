@@ -1,11 +1,14 @@
 import { Button, Input } from "antd";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import CheckIfAdmin from "../utils/CheckIfAdmin";
-import CheckIfAuthorized from "../utils/CheckIfAuthorized";
+import authService from "../services/authService";
+import userService from "../services/userService";
 const { Search } = Input;
-export default function Navbar() {
+export default function Navbar(props) {
   const navigate = useNavigate();
+  const [userId, setUserId] = useState(0);
+
   const logout = () => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("role");
@@ -16,7 +19,17 @@ export default function Navbar() {
     navigate("/");
   };
   const onSearch = (value) => {
-    console.log(value);
+    navigate("/home");
+    props.onSearchProp(value);
+  };
+
+  useEffect(() => {
+    loadUserId();
+  }, []);
+  const loadUserId = () => {
+    userService.getCurrentUserId().then((result) => {
+      setUserId(result.data);
+    });
   };
   return (
     <nav
@@ -44,7 +57,7 @@ export default function Navbar() {
               Početna
             </a>
           </li>
-          {CheckIfAuthorized() && (
+          {authService.CheckIfAuthorized() && (
             <li className="nav-item active">
               <a
                 className="nav-link"
@@ -55,7 +68,7 @@ export default function Navbar() {
               </a>
             </li>
           )}
-          {CheckIfAuthorized() && (
+          {authService.CheckIfAuthorized() && (
             <li className="nav-item active">
               <a
                 className="nav-link"
@@ -66,18 +79,18 @@ export default function Navbar() {
               </a>
             </li>
           )}
-          {CheckIfAuthorized() && (
+          {authService.CheckIfAuthorized() && (
             <li className="nav-item active">
               <a
                 className="nav-link"
                 style={{ paddingInline: "1rem" }}
-                href={`/users/${localStorage.getItem("id")}`}
+                href={`/users/${userId}`}
               >
                 Profil
               </a>
             </li>
           )}
-          {CheckIfAdmin() && (
+          {authService.CheckIfAdmin() && (
             <li className="nav-item active">
               <a
                 className="nav-link"
@@ -111,11 +124,14 @@ export default function Navbar() {
           borderRadius: 30,
         }}
         onClick={() => {
-          CheckIfAuthorized() ? logout() : login();
+          authService.CheckIfAuthorized() ? logout() : login();
         }}
       >
-        {CheckIfAuthorized() ? "Odjavi se" : "Prijavi se"}
+        {authService.CheckIfAuthorized() ? "Odjavi se" : "Prijavi se"}
       </Button>
     </nav>
   );
 }
+Navbar.propTypes = {
+  onSearchProp: PropTypes.func,
+};

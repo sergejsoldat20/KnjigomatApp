@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { Grid } from "@mui/material";
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import "../App.css";
 import {
   DollarOutlined,
@@ -11,9 +11,10 @@ import {
 import { Layout, Menu, theme, Select, Space, InputNumber, Button } from "antd";
 import postService from "../services/postService";
 import ViewMiniPost from "../views/ViewMiniPost";
-export default function Home() {
+export default function Home(props) {
   const [posts, setPosts] = useState([]);
   const [authors, setAuthors] = useState([]);
+  const [search, setSearch] = useState("");
   const [selectedAuthor, setSelectedAuthor] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -24,16 +25,14 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(16);
   const allPageSizes = [12, 16, 20];
-  const startIndex = currentPage * pageSize;
-  const endIndex = startIndex + pageSize;
   const [postsSize, setPostsSize] = useState(0);
   useEffect(() => {
+    setCurrentPage(0);
+    setSearch(props.searchQuery);
+  }, [props.searchQuery]);
+  useEffect(() => {
     loadPosts();
-    console.log(priceFrom);
-    console.log(priceTo);
-    console.log(selectedCategory);
-    console.log(selectedAuthor);
-  }, [currentPage, postsSize, pageSize]);
+  }, [currentPage, postsSize, pageSize, search]);
   useEffect(() => {
     loadAuthors();
     loadCategories();
@@ -57,7 +56,8 @@ export default function Home() {
         priceTo,
         selectedCategory,
         selectedAuthor,
-        selectedSort
+        selectedSort,
+        search
       )
       .then((result) => {
         setPosts(result.data.content);
@@ -224,13 +224,6 @@ export default function Home() {
               </Button>
             </Menu>
           </Sider>
-          {/* <Content style={{}}>
-            <Grid sx={{ columnCount: 4 }}>
-              {posts.map((post) => (
-                <ViewMiniPost id={post.id} key={post.id} />
-              ))}
-            </Grid>
-          </Content> */}
           <Content style={{}}>
             <div
               style={{
@@ -285,3 +278,6 @@ export default function Home() {
     </Layout>
   );
 }
+Home.propTypes = {
+  searchQuery: PropTypes.string,
+};

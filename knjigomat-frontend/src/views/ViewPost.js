@@ -9,7 +9,7 @@ import getAvatar from "../utils/getAvatar";
 import "../static/Administration.css";
 import SendMessageComponent from "../components/SendMessageComponent";
 import PostComment from "../components/PostComment";
-import CheckIfAuthorized from "../utils/CheckIfAuthorized";
+import authService from "../services/authService";
 const { Meta } = Card;
 const ViewPost = (props) => {
   const [post, setPost] = useState({
@@ -121,7 +121,7 @@ const ViewPost = (props) => {
               <b>Opis :</b> {post.description}
             </p>
           </Card>
-          {CheckIfAuthorized() && (
+          {authService.CheckIfAuthorized() && (
             <Box
               style={{
                 display: "grid",

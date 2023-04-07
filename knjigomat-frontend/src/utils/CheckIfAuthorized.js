@@ -1,8 +1,8 @@
-import CheckIfAdmin from "./CheckIfAdmin";
-import CheckIfUser from "./CheckIfUser";
+// import CheckIfAdmin from "./CheckIfAdmin";
+// import CheckIfUser from "./CheckIfUser";
 
-const CheckIfAuthorized = () => {
-  return CheckIfAdmin() || CheckIfUser();
-};
+// const CheckIfAuthorized = () => {
+//   return CheckIfAdmin() || CheckIfUser();
+// };
 
-export default CheckIfAuthorized;
+// export default CheckIfAuthorized;
