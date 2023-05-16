@@ -77,6 +77,7 @@ public class UserController {
     public ResponseEntity<?> makeUserAdmin(@PathVariable Integer id) throws NotFoundException {
         User user = userService.findById(id, User.class);
         user.setRole(SecurityConsts.ADMIN);
+        user.setIsDeleted(false);
         userService.update(id, user, User.class);
         return ResponseEntity.ok(userService.update(id, user, User.class));
     }
