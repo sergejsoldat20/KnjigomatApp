@@ -34,9 +34,11 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtGenerator jwtGenerator;
     private final ModelMapper modelMapper;
-
     private final EmailService emailService;
     private final UserEntityRepository repository;
+    private String email = "";
+    private String pin = "";
+    private String username ="";
 
     public AuthController(AuthenticationManager authenticationManager,
                           UserService userService,
@@ -72,10 +74,13 @@ public class AuthController {
         if(repository.existsByUsername(request.getUsername())) {
             return new ResponseEntity<>("Username is taken!", HttpStatus.BAD_REQUEST);
         }
-
+        email=request.getEmail();
+        username= request.getUsername();
+        request.setAccountConfirmed(false);
         request.setPassword(passwordEncoder.encode(request.getPassword()));
+        request.setDeleted(false);
         userService.insert(request, UserEntity.class);
-        String pin = String.format("%06d", new Random().nextInt(1000000));
+        pin = String.format("%06d", new Random().nextInt(1000000));
         emailService.sendEmail(request.getEmail(), "Knjigomat - confirm email", "Vas kod za aktivaciju naloga je: " + pin);
         return new ResponseEntity<>("User registered success!", HttpStatus.OK);
     }
@@ -92,10 +97,25 @@ public class AuthController {
         System.out.println(token);
         return new ResponseEntity<>(new AuthResponse(token), HttpStatus.OK);
     }
-
-    @PostMapping("confirm-email")
-    public User confirmEmail(@RequestBody ConfirmEmail request) {
-        return userService.getUserByEmail(request.getEmail());
-        //return user;
+    @GetMapping("/send-pin/{username}")
+    public void sendPin(@PathVariable String username){
+        User user = userService.getUserByUsername(username);
+        this.username = user.getUsername();
+        email = user.getEmail();
+        pin = String.format("%06d", new Random().nextInt(1000000));
+        emailService.sendEmail(email, "Knjigomat - confirm email", "Vas kod za aktivaciju naloga je: " + pin);
+    }
+    @PostMapping("/confirm-pin")
+    public Boolean  confirmPin(@RequestBody ConfirmEmail request)  throws NotFoundException {
+        if (!request.getPin().equals(pin))
+            return false;
+        User user = userService.getUserByUsername(this.username);
+        user.setAccountConfirmed(true);
+        userService.update(user.getId(), user, User.class);
+        return true;
+    }
+    @GetMapping("/email-confirmed/{username}")
+    public Boolean getEmailConfirmed(@PathVariable String username){
+        return userService.getEmailConfirmed(username);
     }
 }

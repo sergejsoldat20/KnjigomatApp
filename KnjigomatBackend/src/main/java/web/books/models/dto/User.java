@@ -11,7 +11,7 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private Boolean isDeleted;
+    private Boolean deleted;
     private String role;
     private Boolean accountConfirmed = true;
     private String phoneNumber;

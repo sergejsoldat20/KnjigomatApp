@@ -73,12 +73,24 @@ public class UserServiceImpl extends CrudJpaService<UserEntity, Integer> impleme
     }
 
     @Override
-    public User getUserByEmail(String email){
-        return getModelMapper().map(repository.findUserEntityByEmail(email), User.class);
+    public User getUserByUsername(String username){
+        return getModelMapper().map(repository.getUserEntityByUsername(username), User.class);
     }
     @Override
     public  User getUserById(Integer id){
         return getModelMapper().map(repository.getUserEntityById(id),User.class);
+    }
+
+    @Override
+    public Boolean getEmailConfirmed(String username) {
+        User user = getModelMapper().map(repository.getUserEntityByUsername(username),User.class);
+        return user.getAccountConfirmed();
+    }
+
+    @Override
+    public String getEmailByUsername(String username) {
+        User user = getModelMapper().map(repository.getUserEntityByUsername(username),User.class);
+        return user.getEmail();
     }
 
     @Override

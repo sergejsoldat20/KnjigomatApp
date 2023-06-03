@@ -12,7 +12,7 @@ public class UserResponse {
     private String username;
   //  private String password;
     private String role;
-    private String isDeleted;
+    private String deleted;
     private Boolean accountConfirmed;
     private String phoneNumber;
 }

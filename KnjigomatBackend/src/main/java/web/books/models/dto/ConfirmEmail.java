@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ConfirmEmail {
-    private String email;
-    private String code;
+//    private String email;
+    private String pin;
 }

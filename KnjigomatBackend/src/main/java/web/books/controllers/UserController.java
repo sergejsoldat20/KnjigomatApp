@@ -52,6 +52,7 @@ public class UserController {
     public Integer getCurrentId() {
         return userService.getCurrentId();
     }
+
     @GetMapping("/current-user")
     public ResponseEntity<UserResponse> getCurrentUser() {
         UserResponse currentUser = userService.getCurrentUser();
@@ -77,7 +78,7 @@ public class UserController {
     public ResponseEntity<?> makeUserAdmin(@PathVariable Integer id) throws NotFoundException {
         User user = userService.findById(id, User.class);
         user.setRole(SecurityConsts.ADMIN);
-        user.setIsDeleted(false);
+        user.setDeleted(false);
         userService.update(id, user, User.class);
         return ResponseEntity.ok(userService.update(id, user, User.class));
     }

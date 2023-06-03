@@ -12,7 +12,7 @@ public class RegisterRequest {
     private String email;
     private String username;
     private String password;
-    private Boolean isDeleted = false;
+    private Boolean deleted = false;
     private String role = "USER";
     private Boolean accountConfirmed = true;
     private String phoneNumber;

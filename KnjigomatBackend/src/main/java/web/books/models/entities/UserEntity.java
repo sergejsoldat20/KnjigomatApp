@@ -47,7 +47,7 @@ public class UserEntity implements BaseEntity<Integer> {
     private Boolean deleted=Boolean.FALSE;
     @Basic
     @Column(name = "account_confirmed")
-    private Boolean accountConfirmed;
+    private Boolean accountConfirmed=Boolean.FALSE;
     @Basic
     @Column(name = "phone_number")
     private String phoneNumber;
