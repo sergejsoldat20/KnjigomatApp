@@ -9,6 +9,7 @@ import {
   DatePicker,
   message,
   Typography,
+  Popconfirm,
 } from "antd";
 import { MDBContainer, MDBRow, MDBCol, MDBRipple } from "mdb-react-ui-kit";
 import React, { useState } from "react";
@@ -39,9 +40,7 @@ export default function AddPatient() {
     addUser({ ...user, [e.target.name]: e.target.value }); // nastavlja da dodaje nove objekte
     console.log(e.target.value);
   };
-
   const onFinish = async (e) => {
-    console.log(user);
     for (const key in user) {
       if (user[key] === "") {
         message.error("Potrebno je popuniti sva polja", 5);
@@ -49,12 +48,11 @@ export default function AddPatient() {
       }
     }
     authService.register(user).then((result) => {
-      if (result.status === 201) {
-        message.success("Uspjesno ste dodali korisnika!");
-        navigate("/home");
+      if (result.status === 200) {
+        message.success("Uspjesno ste se registrovali.");
+        navigate("/confirm-email");
       } else {
-        message.error("Niste uspjesno dodali korisnika!");
-        navigate("/home");
+        message.error("Doslo je do greske pri registraciji!");
       }
     });
   };
@@ -78,21 +76,20 @@ export default function AddPatient() {
                         container
                         spacing={0}
                         direction="column"
-                        alignItems="center"
-                        justifyContent="center"
                         paddingRight={0}
                       >
                         <Form
                           name="basic"
                           labelCol={{
-                            span: 35,
+                            span: 7,
                           }}
                           wrapperCol={{
-                            span: 28,
+                            span: 12,
                           }}
                           initialValues={{
                             remember: true,
                           }}
+                          labelAlign="center"
                           onFinish={(e) => onFinish(e)}
                           onFinishFailed={onFinishFailed}
                           autoComplete="off"
@@ -228,15 +225,10 @@ export default function AddPatient() {
                             />
                           </Form.Item>
 
-                          <Form.Item
-                            wrapperCol={{
-                              offset: 8,
-                              span: 16,
-                            }}
-                          >
+                          <Form.Item>
                             <Button
                               type="primary"
-                              className="btn btn-success w-100 my-2"
+                              className="btn btn-success top-50 start-50"
                               onClick={onFinish}
                             >
                               Registruj

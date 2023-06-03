@@ -15,7 +15,7 @@ import UploadPhoto from "./pages/UploadPhoto";
 import AllUsers from "./pages/AllUsers";
 import Reports from "./pages/Reports";
 import Administration from "./pages/Administration";
-
+import ConfirmEmail from "./pages/ConfirmEmail";
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {}, [searchQuery]);
@@ -47,6 +47,7 @@ function App() {
           <Route exact path="/administration-users" element={<AllUsers />} />
           <Route exact path="/administration-reports" element={<Reports />} />
           <Route exact path="/administration" element={<Administration />} />
+          <Route exact path="/confirm-email" element={<ConfirmEmail />} />
         </Routes>
       </Router>
     </div>

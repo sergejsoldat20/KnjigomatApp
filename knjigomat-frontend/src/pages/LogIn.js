@@ -9,7 +9,8 @@ import "../css/LogIn.css";
 
 export default function LogIn() {
   const navigate = useNavigate();
-  const onFinish = async (values) => {
+
+  const handleLogin = async (values) => {
     try {
       const response = await axios.post(
         "http://localhost:9000/api/auth/login",
@@ -23,7 +24,7 @@ export default function LogIn() {
         },
       };
       const role = await axios.get(
-        `http://localhost:9000/users/current-role`,
+        "http://localhost:9000/users/current-role",
         config
       );
       localStorage.setItem("role", authService.setRole(role.data));
@@ -34,6 +35,20 @@ export default function LogIn() {
     }
   };
 
+  const onFinish = async (values) => {
+    try {
+      const response = await authService.getEmailConfirmed(values.username);
+      const emailConfirmed = response.data;
+      if (!emailConfirmed) {
+        await authService.sendPin(values.username);
+        navigate("/confirm-email");
+      } else {
+        await handleLogin(values);
+      }
+    } catch (error) {
+      message.error("Niste se uspjesno ulogovali");
+    }
+  };
   return (
     <MDBContainer
       className="my-5 gradient-form"
