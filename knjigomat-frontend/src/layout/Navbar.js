@@ -13,6 +13,7 @@ export default function Navbar(props) {
     localStorage.removeItem("jwt");
     localStorage.removeItem("role");
     localStorage.removeItem("id");
+    localStorage.removeItem("filterValues");
     navigate("/");
   };
   const login = () => {
@@ -30,6 +31,15 @@ export default function Navbar(props) {
     userService.getCurrentUserId().then((result) => {
       setUserId(result.data);
     });
+  };
+  const setOdjaviPrijavi = () => {
+    if (authService.CheckIfAuthorized) {
+      loadUserId();
+      return true;
+    } else {
+      loadUserId();
+      return false;
+    }
   };
   return (
     <nav
@@ -127,7 +137,7 @@ export default function Navbar(props) {
           authService.CheckIfAuthorized() ? logout() : login();
         }}
       >
-        {authService.CheckIfAuthorized() ? "Odjavi se" : "Prijavi se"}
+        {setOdjaviPrijavi() ? "Odjavi se" : "Prijavi se"}
       </Button>
     </nav>
   );

@@ -3,15 +3,18 @@ import React, { useEffect, useState } from "react";
 import postService from "../services/postService";
 import { PropTypes } from "prop-types";
 import { Box, Grid } from "@mui/material";
-import { Card, Image, Divider, Col, Row, Button, Modal } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { Card, Image, Divider, Col, Row, Button, Modal, Empty } from "antd";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import getAvatar from "../utils/getAvatar";
 import "../static/Administration.css";
 import SendMessageComponent from "../components/SendMessageComponent";
 import PostComment from "../components/PostComment";
-import authService from "../services/authService";
+import authService, { CheckIfAdmin } from "../services/authService";
+import userService from "../services/userService";
 const { Meta } = Card;
 const ViewPost = (props) => {
+  const navigate = useNavigate();
+
   const [post, setPost] = useState({
     id: 0,
     name: "",
@@ -32,16 +35,26 @@ const ViewPost = (props) => {
     postId: 0,
   });
   const [photos, setPhotos] = useState([]);
+  const [currentUserId, setCurrentUserId] = useState(0);
   useEffect(() => {
     loadPost();
     loadFirstPhoto();
     loadPhotos();
+    loadCurrentUserId();
     console.log("useEffect(ViewPost)");
     console.log("URL:" + firstPhoto.photoUrl);
+    console.log(`CURRENT USER ${currentUserId}`);
+    console.log(`POST USER ${post.userId}`);
+    console.log(`ispis`);
   }, []);
   const loadPost = () => {
     postService.getPostById(props.id).then((result) => {
       setPost(result.data);
+    });
+  };
+  const loadCurrentUserId = () => {
+    userService.getCurrentUserId().then((result) => {
+      setCurrentUserId(result.data);
     });
   };
   const loadFirstPhoto = () => {
@@ -60,6 +73,10 @@ const ViewPost = (props) => {
   };
   const handleCancel = () => {
     setIsModalOpen(0);
+  };
+  const deletePost = async (id) => {
+    await postService.deletePost(id);
+    navigate("/home");
   };
   const sendButton = {
     height: 65,
@@ -168,29 +185,71 @@ const ViewPost = (props) => {
             fontSize: 20,
             minHeight: 156,
             borderTop: 0,
+            borderRight: 0,
           }}
         >
           <Box
-            sx={{
+            style={{
               display: "grid",
-              gridTemplateColumns: "repeat(4,1fr)",
+              gridTemplateColumns: "repeat(2,1fr)",
+              justifyContent: "space-around",
+              alignItems: "space-around",
             }}
           >
-            <a href={`/users/${post.userId}`}>
-              <img
-                src={getAvatar(post.userGender)}
-                alt="Not Found"
-                height={100}
-                width={100}
-                style={{ borderRadius: 50 }}
-              />
-            </a>
-            <Link
-              to={`/users/${post.userId}`}
-              style={{ textDecoration: "none" }}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2,1fr)",
+              }}
             >
-              {post.userUsername}
-            </Link>
+              <a href={`/users/${post.userId}`}>
+                <img
+                  src={getAvatar(post.userGender)}
+                  alt="Not Found"
+                  height={100}
+                  width={100}
+                  style={{ borderRadius: 50 }}
+                />
+              </a>
+              <Link
+                to={`/users/${post.userId}`}
+                style={{ textDecoration: "none" }}
+              >
+                {post.userUsername}
+              </Link>
+            </Box>
+            {(currentUserId === post.userId || CheckIfAdmin) && (
+              <Box
+                style={{
+                  display: "grid",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <Button
+                  style={{
+                    height: 65,
+                    width: 150,
+                    borderRadius: 50,
+                    borderColor: "#4182fc",
+                    color: "#4182fc",
+                  }}
+                  onClick={() => showModal(3)}
+                >
+                  Obrisi oglas
+                </Button>
+                <Modal
+                  title="Da li zelite da obriste ovaj oglas?"
+                  onOk={() => deletePost(post.id)}
+                  onCancel={handleCancel}
+                  open={isModalOpen === 3}
+                  closable={false}
+                  okText="Da"
+                  cancelText="Ne"
+                ></Modal>
+              </Box>
+            )}
           </Box>
         </Card>
       </Col>
