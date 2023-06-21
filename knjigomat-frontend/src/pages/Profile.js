@@ -28,7 +28,9 @@ export default function Profile() {
   console.log("NESTO" + 103);
   return (
     <div>
-      <Box style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)" }}>
+      <Box
+        style={{ display: "grid", gridTemplateColumns: "1fr 4fr", gap: "20px" }}
+      >
         <ViewUserInformation id={userId} />
         <div
           style={{

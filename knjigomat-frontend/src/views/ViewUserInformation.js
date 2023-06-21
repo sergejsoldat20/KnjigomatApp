@@ -3,6 +3,9 @@ import { PropTypes } from "prop-types";
 import userService from "../services/userService";
 import { Card, Avatar } from "antd";
 import getAvatar from "../utils/getAvatar";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
 const ViewUserInformation = (props) => {
   const [user, setUser] = useState({
     id: 0,
@@ -29,8 +32,16 @@ const ViewUserInformation = (props) => {
       console.log(result.data);
     });
   };
+  const cardStyle = {
+    backgroundColor: "#F5F5F5",
+    padding: "20px",
+    borderRadius: "8px",
+  };
+  const iconStyle = {
+    marginRight: "12px", // Adjust the margin value as per your preference
+  };
   return (
-    <Card style={{ textAlign: "left" }}>
+    <div style={cardStyle}>
       <Meta
         avatar={
           <Avatar
@@ -38,26 +49,34 @@ const ViewUserInformation = (props) => {
             src={getAvatar(user.gender)}
           />
         }
-        title={<b style={{ fontSize: 23 }}>{user.username}</b>}
+        title={
+          <b
+            style={{
+              fontSize: 23,
+              fontFamily: "Arial, sans-serif",
+              fontStyle: "italic",
+            }}
+          >
+            {user.username}
+          </b>
+        }
         style={{ paddingBottom: 20 }}
       />
-      <p style={cardFont}>
-        <b>Ime: </b>
-        {user.firstName}
+
+      <p>
+        <AccountCircleIcon style={iconStyle} />
+        {user.firstName} {user.lastName}
       </p>
+
       <p style={cardFont}>
-        <b>Prezime: </b>
-        {user.lastName}
-      </p>
-      <p style={cardFont}>
-        <b>Email: </b>
+        <EmailIcon style={iconStyle} />
         {user.email}
       </p>
       <p style={cardFont}>
-        <b>Broj telefona: </b>
+        <PhoneIcon style={iconStyle} />
         {user.phoneNumber}
       </p>
-    </Card>
+    </div>
   );
 };
 ViewUserInformation.propTypes = {
