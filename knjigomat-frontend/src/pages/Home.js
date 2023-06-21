@@ -12,6 +12,8 @@ import { Layout, Menu, theme, Select, Space, InputNumber, Button } from "antd";
 import postService from "../services/postService";
 import ViewMiniPost from "../views/ViewMiniPost";
 export default function Home(props) {
+  const filters = ["Cijena", "Kategorija", "Autor", "Sortiraj", "Osvjezi"];
+  const sortBy = ["Najnovije", "Najstarije", "Najskuplje", "Najjeftinije"];
   const [posts, setPosts] = useState([]);
   const [authors, setAuthors] = useState([]);
   const [search, setSearch] = useState("");
@@ -21,6 +23,7 @@ export default function Home(props) {
   const [selectedSort, setSelectedSort] = useState("");
   const [priceFrom, setPriceFrom] = useState(0);
   const [priceTo, setPriceTo] = useState(0);
+  const [sortValue, setSortValue] = useState(sortBy[1]);
   const allKeys = ["filter-1", "filter-2", "filter-3", "filter-4", "refresh"];
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(16);
@@ -48,6 +51,23 @@ export default function Home(props) {
     setSelectedSort(sortByCriteria);
   };
   const loadPosts = () => {
+    const storedFilterValues = localStorage.getItem("filterValues");
+    if (storedFilterValues) {
+      const {
+        selectedAuthor,
+        selectedCategory,
+        selectedSort,
+        priceFrom,
+        priceTo,
+        sortValue,
+      } = JSON.parse(storedFilterValues);
+      setSelectedAuthor(selectedAuthor);
+      setSelectedCategory(selectedCategory);
+      setSelectedSort(selectedSort);
+      setPriceFrom(priceFrom);
+      setPriceTo(priceTo);
+      setSortValue(sortValue);
+    }
     postService
       .getFiltered(
         currentPage,
@@ -75,8 +95,7 @@ export default function Home(props) {
     });
   };
   const { Content, Sider } = Layout;
-  const filters = ["Cijena", "Kategorija", "Autor", "Sortiraj", "Osvjezi"];
-  const sortBy = ["Najnovije", "Najstarije", "Najskuplje", "Najjeftinije"];
+
   const items = [
     {
       key: allKeys[0],
@@ -90,11 +109,13 @@ export default function Home(props) {
                 onChange={(value) => setPriceFrom(value)}
                 placeholder="Od"
                 allowClear={true}
+                value={priceFrom === 0 ? null : priceFrom}
               />
               <InputNumber
                 onChange={(value) => setPriceTo(value)}
                 placeholder="Do"
                 allowClear={true}
+                value={priceTo === 0 ? null : priceTo}
               />
             </Space>
           ),
@@ -115,6 +136,7 @@ export default function Home(props) {
               }}
               style={{ width: "100%" }}
               allowClear={true}
+              value={selectedCategory}
             >
               {categories.map((category, index) => (
                 <Select.Option key={index} value={category}>
@@ -140,6 +162,7 @@ export default function Home(props) {
               }}
               style={{ width: "100%" }}
               allowClear={true}
+              value={selectedAuthor}
             >
               {authors.map((author, index) => (
                 <Select.Option key={index} value={author}>
@@ -163,12 +186,15 @@ export default function Home(props) {
               onChange={(selectedCriteria, index) => {
                 if (index === undefined) {
                   setSelectedSort(null);
+                  setSortValue(null);
                 } else {
                   setSort(index.key);
+                  setSortValue(sortBy[index.key]);
                 }
               }}
               style={{ width: "100%" }}
               allowClear={true}
+              value={sortValue}
             >
               {sortBy.map((sort, index) => (
                 <Select.Option key={index} value={sort}>
@@ -186,7 +212,19 @@ export default function Home(props) {
     setCurrentPage(0);
     setPageSize(value);
   };
+  const saveFilterValues = () => {
+    const filterValues = {
+      selectedAuthor,
+      selectedCategory,
+      selectedSort,
+      priceFrom,
+      priceTo,
+      sortValue,
+    };
+    localStorage.setItem("filterValues", JSON.stringify(filterValues));
+  };
   const filterPosts = () => {
+    saveFilterValues();
     loadPosts();
   };
   const {

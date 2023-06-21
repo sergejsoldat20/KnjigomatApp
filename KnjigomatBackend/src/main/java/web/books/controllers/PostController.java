@@ -63,10 +63,7 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) throws NotFoundException {
-        Post post = service.findById(id, Post.class);
-        if (Objects.equals(post.getUserId(), userService.getCurrentId()) || userService.getCurrentUser().getRole().equals(SecurityConsts.ADMIN)) {
-            service.delete(id);
-        }
+        service.delete(id);
     }
 
     @PostMapping
