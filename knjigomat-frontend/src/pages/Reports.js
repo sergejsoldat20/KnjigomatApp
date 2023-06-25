@@ -27,8 +27,10 @@ export default function AllUsers() {
   };
 
   const deleteReport = (id) => {
-    reportService.deleteReport(id).then(() => {
-      loadReports();
+    reportService.deleteReport(id).then((result) => {
+      if (result.status === 200) {
+        loadReports();
+      }
     });
     // setDeletedId(id);
   };

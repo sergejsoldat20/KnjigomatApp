@@ -18,4 +18,5 @@ export const deleteReport = (id) => {
 export default {
   getAllReports,
   insertReport,
+  deleteReport,
 };
