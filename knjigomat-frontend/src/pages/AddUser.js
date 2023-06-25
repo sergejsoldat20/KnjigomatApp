@@ -70,7 +70,7 @@ export default function AddPatient() {
                 <div className="col-md-12 offset-md-0 border rounder p-4 mt-2 shadow  ">
                   <h2 className="text-center m-4">KREIRAJ NALOG</h2>
 
-                  <div className="card" style={{ backgroundColor: "#D7FFC4" }}>
+                  <div className="card" style={{ backgroundColor: "#F5F5F5" }}>
                     <div className="card-header">
                       <Grid
                         container
@@ -228,7 +228,7 @@ export default function AddPatient() {
                           <Form.Item>
                             <Button
                               type="primary"
-                              className="btn btn-success top-50 start-50"
+                              className="btn btn-primary top-50 start-50"
                               onClick={onFinish}
                             >
                               Registruj

@@ -1,8 +1,8 @@
 const getAvatar = (gender) => {
   if (gender === "M") {
-    return "https://res.cloudinary.com/dmoekbwh0/image/upload/v1679492161/qtykickul5l9qgbr9hxl.png";
+    return "https://cdn.vectorstock.com/i/1000x1000/10/70/young-male-profile-colorful-icon-vector-9651070.webp";
   } else {
-    return "https://res.cloudinary.com/dmoekbwh0/image/upload/v1679493587/signal-2023-03-22-145826_003_pborwy.png";
+    return "https://img.freepik.com/premium-vector/default-female-user-profile-icon-vector-illustration_276184-169.jpg?w=740";
   }
 };
 export default getAvatar;
