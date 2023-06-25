@@ -16,4 +16,24 @@
             </basic>
         </attributes>
     </entity>
+    <entity class="web.books.models.entities.ReportEntity">
+        <table name="report" schema="knjigomat" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="reportText">
+                <column name="report_text"/>
+            </basic>
+            <basic name="createdTime">
+                <column name="created_time"/>
+            </basic>
+            <basic name="userId">
+                <column name="user_id"/>
+            </basic>
+            <basic name="postId">
+                <column name="post_id"/>
+            </basic>
+        </attributes>
+    </entity>
 </entity-mappings>

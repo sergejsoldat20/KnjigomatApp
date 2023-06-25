@@ -11,6 +11,7 @@ import SendMessageComponent from "../components/SendMessageComponent";
 import PostComment from "../components/PostComment";
 import authService, { CheckIfAdmin } from "../services/authService";
 import userService from "../services/userService";
+import ReportModal from "../components/ReportModal";
 const { Meta } = Card;
 const ViewPost = (props) => {
   const navigate = useNavigate();
@@ -174,6 +175,17 @@ const ViewPost = (props) => {
                   messageType={"post"}
                   closeModal={handleCancel}
                 />
+              </Modal>
+              <Button style={sendButton} onClick={() => showModal(4)}>
+                Prijavi oglas
+              </Button>
+              <Modal
+                title="Prijavi oglas"
+                open={isModalOpen === 4}
+                footer={null}
+                closable={false}
+              >
+                <ReportModal postId={post.id} closeModal={handleCancel} />
               </Modal>
             </Box>
           )}

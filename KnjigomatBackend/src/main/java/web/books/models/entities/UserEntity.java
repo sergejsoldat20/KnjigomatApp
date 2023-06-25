@@ -60,6 +60,9 @@ public class UserEntity implements BaseEntity<Integer> {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<PostEntity> posts;
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<ReportEntity> reports;
 
 
 }

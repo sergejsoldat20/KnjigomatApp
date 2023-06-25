@@ -54,6 +54,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/posts/**").permitAll()
                 .requestMatchers("/posts/**").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
                 .requestMatchers(HttpMethod.GET,"users/all-basic-users/**").hasAnyAuthority(SecurityConsts.ADMIN)
+                .requestMatchers("/reports").hasAuthority(SecurityConsts.ADMIN)
+                .requestMatchers("/reports/insert").hasAnyAuthority(SecurityConsts.USER, SecurityConsts.ADMIN)
+                .requestMatchers("/reports/delete").hasAuthority(SecurityConsts.ADMIN)
                 .and()
                 .httpBasic();
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

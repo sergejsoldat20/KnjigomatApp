@@ -50,4 +50,8 @@ public class PostEntity implements BaseEntity<Integer> {
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private UserEntity user;
 
+    @OneToMany(mappedBy = "post")
+    @JsonIgnore
+    private List<ReportEntity> reports;
+
 }

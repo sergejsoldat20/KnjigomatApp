@@ -124,21 +124,23 @@ export default function Navbar(props) {
         }}
       />
       <div style={{ width: 60 }}></div>
-      <Button
-        type="text"
-        style={{
-          float: "right",
-          fontSize: 20,
-          height: 50,
-          width: 120,
-          borderRadius: 30,
-        }}
-        onClick={() => {
-          authService.CheckIfAuthorized() ? logout() : login();
-        }}
-      >
-        {setOdjaviPrijavi() ? "Odjavi se" : "Prijavi se"}
-      </Button>
+      {authService.CheckIfAuthorized() && (
+        <Button
+          type="text"
+          style={{
+            float: "right",
+            fontSize: 20,
+            height: 50,
+            width: 120,
+            borderRadius: 30,
+          }}
+          onClick={() => {
+            authService.CheckIfAuthorized() ? logout() : login();
+          }}
+        >
+          {setOdjaviPrijavi() ? "Odjavi se" : "Prijavi se"}
+        </Button>
+      )}
     </nav>
   );
 }
